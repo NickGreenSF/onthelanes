@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './App.css'
-import { getAllGames } from "./api/Requests"
+import { getAllGames, samplePostGame } from "./api/Requests"
 
 function App() {
   useEffect(() => {
