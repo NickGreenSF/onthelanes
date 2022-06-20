@@ -1,17 +1,18 @@
 export class BadStatusError extends Error {
   code: number;
+
   constructor(message: string, code: number) {
     super(message);
-    this.name = "BadStatusError";
+    this.name = 'BadStatusError';
     this.code = code;
   }
 }
 
-export const postRequest = async (url = "", data = {}) => {
+export const postRequest = async (url = '', data = {}) => {
   const response = await fetch(url, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   });
@@ -21,11 +22,11 @@ export const postRequest = async (url = "", data = {}) => {
   return response.json();
 };
 
-export const putRequest = async (url = "", data = {}) => {
+export const putRequest = async (url = '', data = {}) => {
   const response = await fetch(url, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   });
@@ -35,11 +36,11 @@ export const putRequest = async (url = "", data = {}) => {
   return response.json();
 };
 
-export const deleteRequest = async (url = "", data = {}) => {
+export const deleteRequest = async (url = '', data = {}) => {
   const response = await fetch(url, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   });
@@ -49,10 +50,10 @@ export const deleteRequest = async (url = "", data = {}) => {
   return response.json();
 };
 
-export const getRequest = async (url = "") => {
+export const getRequest = async (url = '') => {
   const response = await fetch(url, {
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
   });
   if (!response.ok) {
