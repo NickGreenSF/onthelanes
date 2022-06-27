@@ -7,20 +7,15 @@ import CountFrame from '../components/CountFrame';
 const initBool = false; // typescript defines false as a type
 
 const width: number = window.innerWidth;
+const height: number = window.innerHeight;
 
-const Game = styled.div`
-  width: ${width}px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
 const NameHolder = styled.div`
-  width: ${width / 2}px;
+  width: ${width / 5}px;
   border: 1px solid black;
-  border-right: 0px;
+  background-color: lightblue;
 `;
 
 const TenWide = styled.div`
-  width: ${width}px;
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
   border-right: 1px solid black;
@@ -30,6 +25,15 @@ const ScoreBox = styled.div`
   text-align: center;
   border: 1px solid black;
   border-right: 0px;
+  height: ${height / 14}px;
+  font-size: ${height / 16}px;
+  background-color: white;
+`;
+
+const FramesHolder = styled.div`
+  margin-bottom: ${height / 20}px;
+  margin-left: ${width / 10}px;
+  margin-right: ${width / 10}px;
 `;
 
 function retrieveScore(frames: string) {
@@ -87,7 +91,7 @@ function retrieveScore(frames: string) {
   return scores;
 }
 
-const startStateArr: GameProps = { score: 0 };
+const startStateArr: GameProps = { score: 0, frames: '' };
 
 function Homepage() {
   const [loaded, setLoaded] = useState(initBool);
@@ -106,26 +110,21 @@ function Homepage() {
   return (
     <div>
       {games.map((game) => (
-        <div>
-          <Game>
-            <NameHolder>N</NameHolder>
-            <NameHolder>{game.score}</NameHolder>
-          </Game>
-          {game.frames ? (
-            <div>
-              <TenWide>
-                {game.frames.split('|').map((frame) => (
-                  <CountFrame frameText={frame} />
-                ))}
-              </TenWide>
-              <TenWide>
-                {retrieveScore(game.frames).map((score) => (
-                  <ScoreBox>{score}</ScoreBox>
-                ))}
-              </TenWide>
-            </div>
-          ) : undefined}
-        </div>
+        <FramesHolder>
+          <NameHolder>N</NameHolder>
+          <div>
+            <TenWide>
+              {game.frames.split('|').map((frame) => (
+                <CountFrame frameText={frame} />
+              ))}
+            </TenWide>
+            <TenWide>
+              {retrieveScore(game.frames).map((score) => (
+                <ScoreBox>{score}</ScoreBox>
+              ))}
+            </TenWide>
+          </div>
+        </FramesHolder>
       ))}
     </div>
   );
