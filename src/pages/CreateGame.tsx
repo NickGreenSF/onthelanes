@@ -1,83 +1,29 @@
 import { useState, useRef } from 'react';
 import { samplePostGame } from '../api/Requests';
-
-// const inputSetLocation: { [key: number]: number } = {
-//   0: 0,
-//   1: 0,
-//   2: 1,
-//   3: 1,
-//   4: 2,
-//   5: 2,
-//   6: 3,
-//   7: 3,
-//   8: 4,
-//   9: 4,
-//   10: 5,
-//   11: 5,
-//   12: 6,
-//   13: 6,
-//   14: 7,
-//   15: 7,
-//   16: 8,
-//   17: 8,
-//   18: 9,
-//   19: 9,
-//   20: 9,
-// };
+import TwoInput from '../components/TwoInput';
 
 export default function CreateGame() {
-  const [data, setData] = useState([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
+  const [frames, setFrames] = useState([
+    '--',
+    '--',
+    '--',
+    '--',
+    '--',
+    '--',
+    '--',
+    '--',
+    '--',
+    '---',
   ]);
-
-  const inputRefs = [
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-  ];
 
   const [error, setError] = useState('');
 
+  function changeData(inp: string) {
+    console.log(inp);
+  }
+
   //   function retrieveScoreWithCompletion() {
-  //     const sepFrames: string[] = data;
+  //     const sepFrames: string[] = frames;
   //     let complete = 0;
   //     const scores: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   //     for (let i = 0; i < 9; i += 1) {
@@ -140,35 +86,10 @@ export default function CreateGame() {
   //     console.log(scores, complete);
   //     return { scores, complete };
   //   }
-
-  function validData() {
-    for (let i = 0; i < data.length; i += 1) {
-      if (data[i] === '') {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  async function submit() {
-    if (validData()) {
-      try {
-        const newGame = await samplePostGame({
-          score: 0,
-          frames: 'HEEHEEHOOHOO',
-        });
-        console.log(newGame);
-      } catch (e) {
-        // TODO: Display error toast, but for now, just log
-        console.log(e);
-      }
-    }
-  }
   return (
     <div>
-      <button type="submit" onClick={submit}>
-        test yay
-      </button>
+      {/* function must be referenced instead of passed in so it doesn't rerender every time */}
+      <TwoInput changeFrame={(frame) => changeData(frame)} />
     </div>
   );
 }
