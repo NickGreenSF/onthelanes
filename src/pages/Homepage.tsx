@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { GameProps } from '../types';
 import { getAllGames, samplePostGame } from '../api/Requests';
 import CountFrame from '../components/CountFrame';
+import { TenWide, ScoreBox } from '../constants/Values';
 
 const initBool = false; // typescript defines false as a type
 
@@ -13,21 +14,6 @@ const NameHolder = styled.div`
   width: ${width / 5}px;
   border: 1px solid black;
   background-color: lightblue;
-`;
-
-const TenWide = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
-  border-right: 1px solid black;
-`;
-
-const ScoreBox = styled.div`
-  text-align: center;
-  border: 1px solid black;
-  border-right: 0px;
-  height: ${height / 14}px;
-  font-size: ${height / 16}px;
-  background-color: white;
 `;
 
 const FramesHolder = styled.div`
