@@ -23,7 +23,7 @@ const ThreeWide = styled.div`
 
 export default function CountFrame(props: { frameText: string }) {
   const { frameText } = props;
-  if (frameText.length === 1) {
+  if (frameText === 'X-') {
     return (
       <TwoWide>
         <Box>X</Box>

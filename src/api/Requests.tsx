@@ -13,10 +13,12 @@ export const getAllGames = async () => {
   return resp as GetGamesReponse;
 };
 
-export const samplePostGame = async (data: {
+export const postGame = async (data: {
   score: number;
   frames: string;
   location?: string;
+  description?: string;
+  date?: string;
 }) => {
   const url = `${apiHost}/games`;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

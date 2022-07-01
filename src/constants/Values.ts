@@ -35,7 +35,8 @@ export const TenWide = styled.div`
 `;
 
 export const BoxInput = styled.input`
-  width: 50px;
+  width: ${width / 21}px;
   height: ${height / 14}px;
   font-size: ${height / 16}px;
+  box-sizing: border-box;
 `;

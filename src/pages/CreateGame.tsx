@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { samplePostGame } from '../api/Requests';
+import { postGame } from '../api/Requests';
 import TwoInput from '../components/TwoInput';
 import ThreeInput from '../components/ThreeInput';
 import { TenWide, ScoreBox } from '../constants/Values';
 
 export default function CreateGame() {
-  const [frames, setFrames] = useState([
+  const [frames] = useState([
     '--',
     '--',
     '--',
@@ -19,9 +19,30 @@ export default function CreateGame() {
     '---',
   ]);
 
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [date, setDate] = useState('');
+
   const [frameNums, setFrameNums] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   const [warning, setWarning] = useState('');
+
+  const submit = async () => {
+    console.log(location);
+    console.log(description);
+    try {
+      const newGame = await postGame({
+        score: frameNums[9],
+        frames: frames.join('|'),
+        location: location !== '' ? location : undefined,
+        description: description !== '' ? description : undefined,
+        date: date !== '' ? date : undefined,
+      });
+      console.log(newGame);
+    } catch (e) {
+      console.log(`Error creating game`);
+    }
+  };
 
   function retrieveScore() {
     const sepFrames: string[] = frames;
@@ -102,11 +123,6 @@ export default function CreateGame() {
     setWarning(inp);
   }
 
-  // const Grid = styled.div`
-  //   display: grid;
-  //   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
-  // `
-
   return (
     <div>
       {/* function must be referenced instead of passed in so it doesn't rerender every time */}
@@ -153,11 +169,34 @@ export default function CreateGame() {
         />
       </TenWide>
       <TenWide>
-        {frameNums.map((score) => (
-          <ScoreBox>{score}</ScoreBox>
+        {frameNums.map((score, i) => (
+          <ScoreBox key={i}>{score}</ScoreBox>
         ))}
       </TenWide>
       <div>{warning}</div>
+      <div>Location</div>
+      <input
+        onChange={(ev) => {
+          setLocation(ev.target.value);
+        }}
+      />
+      <input
+        type="date"
+        onChange={(ev) => {
+          setDate(ev.target.value);
+          console.log(date);
+        }}
+      />
+      <div>Description</div>
+      <input
+        maxLength={2000}
+        onChange={(ev) => {
+          setDescription(ev.target.value);
+        }}
+      />
+      <button type="button" onClick={submit}>
+        SUBMIT
+      </button>
     </div>
   );
 }
