@@ -13,6 +13,7 @@ export default function Navbar() {
     <Bar>
       <a href="./">Home</a>
       <a href="./creategame">Create Game</a>
+      <a href="./register">Register</a>
     </Bar>
   );
 }
