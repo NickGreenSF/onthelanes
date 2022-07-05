@@ -1,19 +1,31 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { fireBaseAuth } from '../firebase/config';
+import { AuthUserContext } from '../contexts/AuthContext';
+import { postUser } from '../api/Requests';
 
 const auth = fireBaseAuth.getAuth();
 
 export default function Register() {
+  const authContext = useContext(AuthUserContext);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const submit = function () {
-    createUserWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
-        console.log(userCredential);
-      }
-    );
+    try {
+      createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          console.log(userCredential);
+          console.log(authContext.user);
+          const firebaseId = userCredential.user.uid;
+          postUser({ username, firebase_id: firebaseId }).then((res) => {
+            console.log(res);
+          });
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
