@@ -13,6 +13,14 @@ export const getAllGames = async () => {
   return resp as GetGamesReponse;
 };
 
+export const getUserGames = async (firebaseId: string) => {
+  const url = `${apiHost}/users/${firebaseId}`;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const resp = await getRequest(url);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return resp;
+};
+
 export const postGame = async (data: {
   score: number;
   frames: string;
