@@ -1,9 +1,9 @@
-import { useState, useRef } from 'react';
-import styled from 'styled-components';
+import { useContext, useState } from 'react';
 import { postGame } from '../api/Requests';
 import TwoInput from '../components/TwoInput';
 import ThreeInput from '../components/ThreeInput';
 import { TenWide, ScoreBox } from '../constants/Values';
+import { AuthUserContext } from '../contexts/AuthContext';
 
 export default function CreateGame() {
   const [frames] = useState([
@@ -23,6 +23,8 @@ export default function CreateGame() {
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
 
+  const authContext = useContext(AuthUserContext);
+
   const [frameNums, setFrameNums] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   const [warning, setWarning] = useState('');
@@ -30,6 +32,11 @@ export default function CreateGame() {
   const submit = async () => {
     console.log(location);
     console.log(description);
+    const currUser = authContext.user;
+    if (currUser === null) {
+      return;
+    }
+    const { uid } = currUser;
     try {
       const newGame = await postGame({
         score: frameNums[9],
@@ -37,6 +44,7 @@ export default function CreateGame() {
         location: location !== '' ? location : undefined,
         description: description !== '' ? description : undefined,
         date: date !== '' ? date : undefined,
+        uid,
       });
       console.log(newGame);
     } catch (e) {

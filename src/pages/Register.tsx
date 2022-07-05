@@ -27,6 +27,9 @@ export default function Register() {
       console.log(error);
     }
   };
+  if (authContext.user !== null) {
+    return <div>no</div>;
+  }
   return (
     <div>
       <input onChange={(ev) => setUsername(ev.target.value)} />

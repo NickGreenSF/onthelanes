@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth';
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 import { fireBaseAuth } from '../firebase/config';
 
 const auth = fireBaseAuth.getAuth();

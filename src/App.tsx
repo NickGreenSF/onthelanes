@@ -18,7 +18,7 @@ function App() {
   // const authContext = { user, setUser, auth, username, setUserName };
   const authContext = useMemo(
     () => ({ user, setUser, auth, username, setUserName }),
-    [user, setUser, auth, username, setUserName]
+    [user, setUser, username, setUserName]
   );
 
   useEffect(() => {

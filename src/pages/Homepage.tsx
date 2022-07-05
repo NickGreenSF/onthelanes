@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GameProps } from '../types';
-import { getAllGames, postGame } from '../api/Requests';
+import { getAllGames } from '../api/Requests';
 import CountFrame from '../components/CountFrame';
 import { TenWide, ScoreBox } from '../constants/Values';
 
@@ -91,7 +91,7 @@ function retrieveScore(frames: string) {
   return scores;
 }
 
-const startStateArr: GameProps = { score: 0, frames: '' };
+const startStateArr: GameProps = { score: 0, frames: '', username: '' };
 
 function Homepage() {
   const [loaded, setLoaded] = useState(initBool);
@@ -111,7 +111,7 @@ function Homepage() {
     <div>
       {games.map((game, i) => (
         <FramesHolder key={`game${i}`}>
-          <NameHolder>N</NameHolder>
+          <NameHolder>{game.username}</NameHolder>
           <div>
             <TenWide>
               {game.frames.split('|').map((frame, j) => (

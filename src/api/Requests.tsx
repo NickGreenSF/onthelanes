@@ -1,5 +1,5 @@
 import { apiHost } from '../constants/Api';
-import { deleteRequest, getRequest, postRequest } from './BaseRequests';
+import { getRequest, postRequest } from './BaseRequests';
 import { GameProps, UserProps } from '../types';
 
 type GetGamesReponse = {
@@ -19,6 +19,7 @@ export const postGame = async (data: {
   location?: string;
   description?: string;
   date?: string;
+  uid: string;
 }) => {
   const url = `${apiHost}/games`;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

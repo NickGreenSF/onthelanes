@@ -4,6 +4,7 @@ export interface GameProps {
   location?: string;
   id?: number;
   user_id?: number;
+  username: string;
 }
 
 export interface UserProps {

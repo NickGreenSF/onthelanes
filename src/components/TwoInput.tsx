@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import { validateFrame } from '../constants/Functions';
 import { validChars, BoxInput } from '../constants/Values';
 
