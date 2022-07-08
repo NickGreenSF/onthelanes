@@ -31,11 +31,11 @@ export const TenWide = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
   border-right: 1px solid black;
-  width: ${width}px;
+  width: ${width * 0.8}px;
 `;
 
 export const BoxInput = styled.input`
-  width: ${width / 21}px;
+  width: ${(width / 21) * 0.8}px;
   height: ${height / 14}px;
   font-size: ${height / 16}px;
   box-sizing: border-box;

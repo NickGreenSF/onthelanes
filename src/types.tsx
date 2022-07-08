@@ -5,6 +5,7 @@ export interface GameProps {
   id?: number;
   user_id?: number;
   username: string;
+  description?: string;
 }
 
 export interface UserProps {
