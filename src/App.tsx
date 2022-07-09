@@ -5,7 +5,6 @@ import { User } from 'firebase/auth';
 import Homepage from './pages/Homepage';
 import Navbar from './components/Navbar';
 import CreateGame from './pages/CreateGame';
-import Register from './pages/Register';
 import Login from './pages/Login';
 import { AuthUserContext } from './contexts/AuthContext';
 import { fireBaseAuth } from './firebase/config';
@@ -43,7 +42,6 @@ function App() {
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/creategame" element={<CreateGame />} />
-              <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
             </Routes>
           </div>

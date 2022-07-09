@@ -1,7 +1,9 @@
 import { useState, useContext } from 'react';
-import styled from 'styled-components';
+import styled, { Keyframes, keyframes } from 'styled-components';
+import { fadeIn } from 'react-animations';
 import { AuthUserContext } from '../contexts/AuthContext';
 import logo from '../constants/logo.png';
+import { fireBaseAuth } from '../firebase/config';
 
 const width: number = window.innerWidth;
 const height: number = window.innerHeight;
@@ -9,28 +11,44 @@ const height: number = window.innerHeight;
 const white = '#e6f1ff';
 const navy = '#0a192f';
 
+const fadeInAni = keyframes`${fadeIn}`;
+
 const NGSFBar = styled.div`
   position: sticky;
   top: 0;
   z-index: 2;
   height: ${height / 15}px;
-  background-color: ${white};
-  box-shadow: 1px 1px 1px 1px black;
+  background-color: white;
   @media screen and (max-width: 1000px) {
     visibility: hidden;
   }
 `;
 
 const NavbarLink = styled.a`
+  color: black;
+  text-decoration: none;
   display: inline-block;
   position: absolute;
   margin-top: ${height / 60}px;
-  color: gray;
   :hover {
-    color: white;
     cursor: pointer;
     text-decoration: none;
   }
+`;
+
+const RectLink = styled.a`
+  color: black;
+  text-decoration: none;
+  :hover {
+    cursor: pointer;
+    text-decoration: none;
+  }
+`;
+
+const LinkWRect = styled.div`
+  display: inline-block;
+  position: absolute;
+  margin-top: ${height / 60}px;
 `;
 
 const CreateGameButton = styled.a`
@@ -50,43 +68,69 @@ const CreateGameButton = styled.a`
   }
 `;
 
+const Rect = styled.div`
+  animation: 1s ${fadeInAni};
+  width: 100%;
+  height: ${height / 120}px;
+  background-color: black;
+`;
+
 const DropDownComp = styled.div`
-  background-color: green;
+  padding-top: ${height / 60}px;
+  color: black;
+  background-color: white;
 `;
 
 const initBool = false;
 
+const auth = fireBaseAuth.getAuth();
+
 export default function Navbar() {
   const authContext = useContext(AuthUserContext);
-  const [show, setShow] = useState(initBool);
+  const [dropdownShow, setDropdownShow] = useState(initBool);
+
+  const signOut = function () {
+    try {
+      auth.signOut().then(() => {
+        authContext.setUser(null);
+        authContext.setUserName(null);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <NGSFBar>
-      {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-      <img alt="" src={logo} />
-      <NavbarLink style={{ right: width * 0.8 }} href="./">
-        Home
-      </NavbarLink>
-      <CreateGameButton style={{ right: width * 0.6 }} href="./creategame">
+      <a href="./">
+        {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
+        <img alt="" src={logo} />
+      </a>
+      <CreateGameButton style={{ right: width * 0.3 }} href="./creategame">
         Add a Score
       </CreateGameButton>
       {authContext.user ? (
         <NavbarLink
-          onMouseOver={() => setShow(true)}
-          onMouseOut={() => setShow(false)}
-          style={{ right: width * 0.4 }}
+          onMouseOver={() => setDropdownShow(true)}
+          onMouseOut={() => setDropdownShow(false)}
+          style={{ right: width * 0.15 }}
         >
           {authContext.username}
-          <DropDownComp style={{ display: show ? 'block' : 'none' }}>
+          <DropDownComp style={{ display: dropdownShow ? 'block' : 'none' }}>
+            View Profile
+          </DropDownComp>
+          <DropDownComp
+            onClick={() => {
+              signOut();
+            }}
+            style={{ display: dropdownShow ? 'block' : 'none' }}
+          >
             Sign Out
           </DropDownComp>
         </NavbarLink>
       ) : (
         <span>
-          <NavbarLink style={{ right: width * 0.4 }} href="./register">
-            Register
-          </NavbarLink>
-          <NavbarLink style={{ right: width * 0.2 }} href="./login">
+          <NavbarLink style={{ right: width * 0.15 }} href="./login">
             Login
           </NavbarLink>
         </span>
