@@ -37,7 +37,7 @@ export default function Profile() {
     return <div>loading</div>;
   }
   if (games.length === 0) {
-    return <div>You have no games</div>;
+    return <div>No games</div>;
   }
   return (
     <div>

@@ -6,7 +6,13 @@ import GameWDesc from '../components/GameWDesc';
 
 const initBool = false; // typescript defines false as a type
 
-const startStateArr: GameProps = { score: 0, frames: '', username: '' };
+const startStateArr: GameProps = {
+  score: 0,
+  frames: '',
+  username: '',
+  id: 0,
+  user_id: '0',
+};
 
 function Homepage() {
   const [loaded, setLoaded] = useState(initBool);

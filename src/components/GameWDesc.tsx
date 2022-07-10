@@ -98,7 +98,9 @@ export default function GameWDesc(props: { game: GameProps; i: number }) {
   const { game, i } = props;
   return (
     <FramesHolder key={`game${i}`}>
-      <NameHolder>{game.username}</NameHolder>
+      <NameHolder>
+        <a href={`./profile?=${game.user_id}`}>{game.username}</a>
+      </NameHolder>
       <div>
         <TenWide>
           {game.frames.split('|').map((frame, j) => (
