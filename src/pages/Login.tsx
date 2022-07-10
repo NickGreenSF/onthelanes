@@ -71,7 +71,7 @@ export default function Login() {
         Register
       </button>
       <button type="button" onClick={() => setPage('login')}>
-        Register here
+        Log in here
       </button>
     </div>
   );

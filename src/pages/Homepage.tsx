@@ -25,7 +25,7 @@ function Homepage() {
   return (
     <div>
       {games.map((game, i) => (
-        <GameWDesc game={game} i={i} />
+        <GameWDesc key={i} game={game} i={i} />
       ))}
     </div>
   );

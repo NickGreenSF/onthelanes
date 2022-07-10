@@ -17,8 +17,8 @@ export const getUserGames = async (firebaseId: string) => {
   const url = `${apiHost}/users/${firebaseId}`;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const resp = await getRequest(url);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return resp;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+  return resp.games;
 };
 
 export const postGame = async (data: {

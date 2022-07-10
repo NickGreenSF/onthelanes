@@ -8,6 +8,7 @@ import CreateGame from './pages/CreateGame';
 import Login from './pages/Login';
 import { AuthUserContext } from './contexts/AuthContext';
 import { fireBaseAuth } from './firebase/config';
+import Profile from './pages/Profile';
 
 const auth = fireBaseAuth.getAuth();
 
@@ -43,6 +44,7 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/creategame" element={<CreateGame />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
         </BrowserRouter>

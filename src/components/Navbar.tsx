@@ -11,8 +11,6 @@ const height: number = window.innerHeight;
 const white = '#e6f1ff';
 const navy = '#0a192f';
 
-const fadeInAni = keyframes`${fadeIn}`;
-
 const NGSFBar = styled.div`
   position: sticky;
   top: 0;
@@ -36,16 +34,9 @@ const NavbarLink = styled.a`
   }
 `;
 
-const RectLink = styled.a`
+const NavbarField = styled.div`
   color: black;
   text-decoration: none;
-  :hover {
-    cursor: pointer;
-    text-decoration: none;
-  }
-`;
-
-const LinkWRect = styled.div`
   display: inline-block;
   position: absolute;
   margin-top: ${height / 60}px;
@@ -66,13 +57,6 @@ const CreateGameButton = styled.a`
     cursor: pointer;
     text-decoration: none;
   }
-`;
-
-const Rect = styled.div`
-  animation: 1s ${fadeInAni};
-  width: 100%;
-  height: ${height / 120}px;
-  background-color: black;
 `;
 
 const DropDownComp = styled.div`
@@ -106,28 +90,30 @@ export default function Navbar() {
         {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
         <img alt="" src={logo} />
       </a>
-      <CreateGameButton style={{ right: width * 0.3 }} href="./creategame">
-        Add a Score
-      </CreateGameButton>
       {authContext.user ? (
-        <NavbarLink
-          onMouseOver={() => setDropdownShow(true)}
-          onMouseOut={() => setDropdownShow(false)}
-          style={{ right: width * 0.15 }}
-        >
-          {authContext.username}
-          <DropDownComp style={{ display: dropdownShow ? 'block' : 'none' }}>
-            View Profile
-          </DropDownComp>
-          <DropDownComp
-            onClick={() => {
-              signOut();
-            }}
-            style={{ display: dropdownShow ? 'block' : 'none' }}
+        <span>
+          <CreateGameButton style={{ right: width * 0.3 }} href="./creategame">
+            Add a Score
+          </CreateGameButton>
+          <NavbarField
+            onMouseOver={() => setDropdownShow(true)}
+            onMouseOut={() => setDropdownShow(false)}
+            style={{ right: width * 0.15 }}
           >
-            Sign Out
-          </DropDownComp>
-        </NavbarLink>
+            {authContext.username}
+            <DropDownComp style={{ display: dropdownShow ? 'block' : 'none' }}>
+              <a href={`./profile?uid=${authContext.user.uid}`}>View Profile</a>
+            </DropDownComp>
+            <DropDownComp
+              onClick={() => {
+                signOut();
+              }}
+              style={{ display: dropdownShow ? 'block' : 'none' }}
+            >
+              Sign Out
+            </DropDownComp>
+          </NavbarField>
+        </span>
       ) : (
         <span>
           <NavbarLink style={{ right: width * 0.15 }} href="./login">

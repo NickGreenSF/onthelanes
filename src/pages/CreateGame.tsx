@@ -131,6 +131,10 @@ export default function CreateGame() {
     setWarning(inp);
   }
 
+  if (authContext.user === null) {
+    return <div>No user logged in</div>;
+  }
+
   return (
     <div>
       {/* function must be referenced instead of passed in so it doesn't rerender every time */}
