@@ -15,11 +15,12 @@ const NameHolder = styled.div`
 
 const FramesHolder = styled.div`
   margin-bottom: ${height / 20}px;
-  margin-left: ${width / 10}px;
+  margin-left: ${width / 20}px;
+  width: ${width * 0.4}px;
 `;
 
 const Arrow = styled.button`
-  width: 80%;
+  width: ${width * 0.4}px;
 `;
 
 function retrieveScore(frames: string) {

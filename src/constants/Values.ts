@@ -22,8 +22,8 @@ export const ScoreBox = styled.div`
   text-align: center;
   border: 1px solid black;
   border-right: 0px;
-  height: ${height / 14}px;
-  font-size: ${height / 16}px;
+  height: ${height / 28}px;
+  font-size: ${height / 32}px;
   background-color: white;
 `;
 
@@ -31,12 +31,12 @@ export const TenWide = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
   border-right: 1px solid black;
-  width: ${width * 0.8}px;
+  width: ${width * 0.4}px;
 `;
 
 export const BoxInput = styled.input`
-  width: ${(width / 21) * 0.8}px;
-  height: ${height / 14}px;
-  font-size: ${height / 16}px;
+  width: ${(width / 21) * 0.4}px;
+  height: ${height / 28}px;
+  font-size: ${height / 32}px;
   box-sizing: border-box;
 `;

@@ -11,6 +11,8 @@ const height: number = window.innerHeight;
 const white = '#e6f1ff';
 const navy = '#0a192f';
 
+const fadeInAni = keyframes`${fadeIn}`;
+
 const NGSFBar = styled.div`
   position: sticky;
   top: 0;
@@ -34,12 +36,12 @@ const NavbarLink = styled.a`
   }
 `;
 
-const NavbarField = styled.div`
+const NavbarField = styled.span`
   color: black;
   text-decoration: none;
-  display: inline-block;
   position: absolute;
   margin-top: ${height / 60}px;
+  width: ${width / 15}px;
 `;
 
 const CreateGameButton = styled.a`
@@ -63,6 +65,8 @@ const DropDownComp = styled.div`
   padding-top: ${height / 60}px;
   color: black;
   background-color: white;
+  animation: 0.25s ${fadeInAni};
+  width: ${width / 15}px;
 `;
 
 const initBool = false;

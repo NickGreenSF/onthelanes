@@ -14,6 +14,11 @@ const startStateArr: GameProps = {
   user_id: '0',
 };
 
+const GameGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
 function Homepage() {
   const [loaded, setLoaded] = useState(initBool);
   const [games, setGames] = useState([startStateArr]);
@@ -21,7 +26,7 @@ function Homepage() {
   // You have to define [] here or this will run a zillion times and that's bad.
   useEffect(() => {
     getAllGames().then((data) => {
-      setGames(data.games);
+      setGames(data.games.reverse());
       setLoaded(true);
     });
   }, []);
@@ -29,11 +34,11 @@ function Homepage() {
     return <div>Loading...</div>;
   }
   return (
-    <div>
+    <GameGrid>
       {games.map((game, i) => (
         <GameWDesc key={i} game={game} i={i} />
       ))}
-    </div>
+    </GameGrid>
   );
 }
 
