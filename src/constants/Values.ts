@@ -23,8 +23,12 @@ export const ScoreBox = styled.div`
   border: 1px solid black;
   border-right: 0px;
   height: ${height / 28}px;
-  font-size: ${height / 32}px;
+  font-size: ${height / 40}px;
   background-color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 `;
 
 export const TenWide = styled.div`
@@ -37,6 +41,11 @@ export const TenWide = styled.div`
 export const BoxInput = styled.input`
   width: ${(width / 21) * 0.4}px;
   height: ${height / 28}px;
-  font-size: ${height / 32}px;
+  font-size: ${height / 40}px;
   box-sizing: border-box;
+`;
+
+export const GameGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;

@@ -14,13 +14,25 @@ const NameHolder = styled.div`
 `;
 
 const FramesHolder = styled.div`
-  margin-bottom: ${height / 20}px;
+  margin-top: ${height / 30}px;
   margin-left: ${width / 20}px;
-  width: ${width * 0.4}px;
+  width: ${width * 0.4 + 1}px;
 `;
 
 const Arrow = styled.button`
-  width: ${width * 0.4}px;
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  background-color: whitesmoke;
+`;
+
+const Desc = styled.div`
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  transition: height ease 0.5s;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+  background-color: white;
 `;
 
 function retrieveScore(frames: string) {
@@ -114,11 +126,16 @@ export default function GameWDesc(props: { game: GameProps; i: number }) {
           ))}
         </TenWide>
       </div>
-      <div className={accordion ? '' : 'none'}>{game.description}</div>
+      <Desc style={accordion ? { height: height / 10 } : { height: '0px' }}>
+        {game.description}
+      </Desc>
       <Arrow
         className={game.description ? '' : 'none'}
         type="button"
         onClick={() => setAccordion(!accordion)}
+        style={
+          accordion ? { borderTop: '1px solid black' } : { borderTop: '0' }
+        }
       >
         {accordion ? '▲' : '▼'}
       </Arrow>

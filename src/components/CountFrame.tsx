@@ -6,9 +6,13 @@ const Box = styled.div`
   border: 1px solid black;
   border-right: 0px;
   height: ${height / 28}px;
-  font-size: ${height / 32}px;
+  font-size: ${height / 40}px;
   text-align: center;
   background-color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 `;
 
 const TwoWide = styled.div`

@@ -73,9 +73,20 @@ const initBool = false;
 
 const auth = fireBaseAuth.getAuth();
 
+// const cookie = document.cookie.split('loggedin=');
+// let prevUser;
+// if (cookie.length === 0) {
+//   console.log('not logged in');
+//   prevUser = false;
+// } else {
+//   const boolStr = cookie[1].split(';')[0];
+//   prevUser = (boolStr === 'true')
+// }
+
 export default function Navbar() {
   const authContext = useContext(AuthUserContext);
   const [dropdownShow, setDropdownShow] = useState(initBool);
+  console.log(authContext);
 
   const signOut = function () {
     try {
@@ -87,6 +98,18 @@ export default function Navbar() {
       console.log(error);
     }
   };
+
+  if (authContext.accessed === false) {
+    return (
+      <NGSFBar>
+        <a href="./">
+          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
+          <img alt="" src={logo} />
+        </a>
+        <NavbarField style={{ right: width * 0.15 }}>...</NavbarField>
+      </NGSFBar>
+    );
+  }
 
   return (
     <NGSFBar>

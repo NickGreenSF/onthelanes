@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { GameProps } from '../types';
 import { getAllGames } from '../api/Requests';
 import GameWDesc from '../components/GameWDesc';
-
-const initBool = false; // typescript defines false as a type
+import { GameGrid } from '../constants/Values';
 
 const startStateArr: GameProps = {
   score: 0,
@@ -14,13 +12,8 @@ const startStateArr: GameProps = {
   user_id: '0',
 };
 
-const GameGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
-
 function Homepage() {
-  const [loaded, setLoaded] = useState(initBool);
+  const [loaded, setLoaded] = useState(false as boolean);
   const [games, setGames] = useState([startStateArr]);
 
   // You have to define [] here or this will run a zillion times and that's bad.

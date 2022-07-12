@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getUserGames } from '../api/Requests';
 import { GameProps } from '../types';
 import GameWDesc from '../components/GameWDesc';
+import { GameGrid } from '../constants/Values';
 
 const url = document.URL;
 console.log(url.split('/'));
@@ -40,10 +41,10 @@ export default function Profile() {
     return <div>No games</div>;
   }
   return (
-    <div>
+    <GameGrid>
       {games.map((game, i) => (
         <GameWDesc key={i} game={game} i={i} />
       ))}
-    </div>
+    </GameGrid>
   );
 }

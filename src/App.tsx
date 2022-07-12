@@ -15,15 +15,26 @@ const auth = fireBaseAuth.getAuth();
 function App() {
   const [user, setUser] = useState(null as User | null);
   const [username, setUserName] = useState(null as string | null);
+  const [accessed, setAccessed] = useState(false as boolean);
   // const authContext = { user, setUser, auth, username, setUserName };
   const authContext = useMemo(
-    () => ({ user, setUser, auth, username, setUserName }),
-    [user, setUser, username, setUserName]
+    () => ({
+      user,
+      setUser,
+      auth,
+      username,
+      setUserName,
+      accessed,
+      setAccessed,
+    }),
+    [user, setUser, username, setUserName, accessed, setAccessed]
   );
 
   useEffect(() => {
     auth.onAuthStateChanged((newUser) => {
       // console.log(newUser);
+      console.log('someone is here!');
+      setAccessed(true);
       setUser(newUser);
       if (!newUser) {
         setUserName(null);
