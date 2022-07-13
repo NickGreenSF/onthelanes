@@ -3,11 +3,23 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
+import styled from 'styled-components';
 import { fireBaseAuth } from '../firebase/config';
 import { AuthUserContext } from '../contexts/AuthContext';
 import { postUser } from '../api/Requests';
+import { FormHolder } from '../constants/Values';
 
 const auth = fireBaseAuth.getAuth();
+
+const ButtonLink = styled.button`
+  background-color: white;
+  cursor: pointer;
+  border: 0;
+`;
+
+const FormObject = styled.div`
+  margin-bottom: 1em;
+`
 
 export default function Login() {
   const authContext = useContext(AuthUserContext);
@@ -50,29 +62,47 @@ export default function Login() {
   }
   if (page === 'login') {
     return (
-      <div>
-        <input onChange={(ev) => setLoginEmail(ev.target.value)} />
-        <input onChange={(ev) => setLoginPassword(ev.target.value)} />
-        <button type="button" onClick={loginSubmit}>
-          Login
-        </button>
-        <button type="button" onClick={() => setPage('register')}>
-          Register here
-        </button>
-      </div>
+      <FormHolder>
+        <FormObject>
+          <input onChange={(ev) => setLoginEmail(ev.target.value)} />
+        </FormObject>
+        <FormObject>
+          <input onChange={(ev) => setLoginPassword(ev.target.value)} />
+        </FormObject>
+        <FormObject>
+          <button type="button" onClick={loginSubmit}>
+            Login
+          </button>
+        </FormObject>
+        <FormObject>
+          <ButtonLink type="button" onClick={() => setPage('register')}>
+            Register here
+          </ButtonLink>
+        </FormObject>
+      </FormHolder>
     );
   }
   return (
-    <div>
-      <input onChange={(ev) => setUsername(ev.target.value)} />
-      <input onChange={(ev) => setEmail(ev.target.value)} />
-      <input onChange={(ev) => setPassword(ev.target.value)} />
-      <button type="button" onClick={submit}>
-        Register
-      </button>
-      <button type="button" onClick={() => setPage('login')}>
-        Log in here
-      </button>
-    </div>
+    <FormHolder>
+      <div>
+        <input onChange={(ev) => setUsername(ev.target.value)} />
+      </div>
+      <div>
+        <input onChange={(ev) => setEmail(ev.target.value)} />
+      </div>
+      <div>
+        <input onChange={(ev) => setPassword(ev.target.value)} />
+      </div>
+      <div>
+        <button type="button" onClick={submit}>
+          Register
+        </button>
+      </div>
+      <div>
+        <ButtonLink type="button" onClick={() => setPage('login')}>
+          Log in here
+        </ButtonLink>
+      </div>
+    </FormHolder>
   );
 }

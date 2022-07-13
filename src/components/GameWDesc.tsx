@@ -7,16 +7,16 @@ import CountFrame from './CountFrame';
 const width: number = window.innerWidth;
 const height: number = window.innerHeight;
 
-const NameHolder = styled.div`
-  width: ${width / 5}px;
-  border: 1px solid black;
-  background-color: lightblue;
-`;
+const NameHolder = styled.div``;
 
 const FramesHolder = styled.div`
   margin-top: ${height / 30}px;
   margin-left: ${width / 20}px;
   width: ${width * 0.4 + 1}px;
+`;
+
+const ProfileLink = styled.a`
+  margin-left: 0.5em;
 `;
 
 const Arrow = styled.button`
@@ -27,8 +27,6 @@ const Arrow = styled.button`
 `;
 
 const Desc = styled.div`
-  border-left: 1px solid black;
-  border-right: 1px solid black;
   transition: height ease 0.5s;
   overflow-y: scroll;
   overflow-wrap: break-word;
@@ -109,10 +107,15 @@ const initBool = false;
 export default function GameWDesc(props: { game: GameProps; i: number }) {
   const [accordion, setAccordion] = useState(initBool);
   const { game, i } = props;
+  const [location] = useState(
+    game.location !== null ? game.location : 'not given'
+  );
   return (
     <FramesHolder key={`game${i}`}>
       <NameHolder>
-        <a href={`./profile?=${game.user_id}`}>{game.username}</a>
+        <ProfileLink href={`./profile?=${game.user_id}`}>
+          {game.username}
+        </ProfileLink>
       </NameHolder>
       <div>
         <TenWide>
@@ -127,15 +130,13 @@ export default function GameWDesc(props: { game: GameProps; i: number }) {
         </TenWide>
       </div>
       <Desc style={accordion ? { height: height / 10 } : { height: '0px' }}>
-        {game.description}
+        <div>Location: {location}</div>
+        <span>{game.description}</span>
       </Desc>
       <Arrow
-        className={game.description ? '' : 'none'}
+        className={game.description || game.location ? '' : 'none'}
         type="button"
         onClick={() => setAccordion(!accordion)}
-        style={
-          accordion ? { borderTop: '1px solid black' } : { borderTop: '0' }
-        }
       >
         {accordion ? '▲' : '▼'}
       </Arrow>

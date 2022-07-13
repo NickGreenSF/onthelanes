@@ -6,6 +6,7 @@ export interface GameProps {
   user_id: string;
   username: string;
   description?: string;
+  date?: string;
 }
 
 export interface UserProps {

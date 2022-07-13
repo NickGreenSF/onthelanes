@@ -14,7 +14,7 @@ export default function TwoInput(props: {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     // check if the frame data is good. if it is, pass it back up to the input
     console.log(event.target.id);
-    changeWarning('');
+    changeWarning('_');
     const { value } = event.target;
     if (value.length === 0) {
       if (event.target.id === '1') {
@@ -39,7 +39,7 @@ export default function TwoInput(props: {
       setThrow2(value);
       totalFrame = throw1 + value;
     }
-    console.log(totalFrame, throw1, throw2);
+    // console.log(totalFrame, throw1, throw2);
     if (validateFrame(totalFrame)) {
       changeFrame(totalFrame);
     } else {

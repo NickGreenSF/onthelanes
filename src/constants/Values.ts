@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const height = window.innerHeight;
-const width = window.innerWidth;
+export const height = window.innerHeight;
+export const width = window.innerWidth;
 
 export const validChars = new Set([
   'X',
@@ -48,4 +48,22 @@ export const BoxInput = styled.input`
 export const GameGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+`;
+
+export const ErrorMessage = styled.div`
+  background-color: white;
+  width: ${width / 3}px;
+  margin: auto;
+  text-align: center;
+  padding: 40px;
+  margin-top: ${height / 10}px;
+`;
+
+export const FormHolder = styled.div`
+  background-color: white;
+  text-align: center;
+  padding: 40px;
+  margin-top: ${height / 10}px;
+  margin-left: ${width / 7}px;
+  margin-right: ${width / 7}px;
 `;

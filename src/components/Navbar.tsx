@@ -8,10 +8,10 @@ import { fireBaseAuth } from '../firebase/config';
 const width: number = window.innerWidth;
 const height: number = window.innerHeight;
 
-const white = '#e6f1ff';
+// const white = '#e6f1ff';
 const navy = '#0a192f';
 
-const fadeInAni = keyframes`${fadeIn}`;
+const fadeInAni: Keyframes = keyframes`${fadeIn}`;
 
 const NGSFBar = styled.div`
   position: sticky;
@@ -67,6 +67,7 @@ const DropDownComp = styled.div`
   background-color: white;
   animation: 0.25s ${fadeInAni};
   width: ${width / 15}px;
+  cursor: pointer;
 `;
 
 const initBool = false;

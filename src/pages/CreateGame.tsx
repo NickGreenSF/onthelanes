@@ -1,8 +1,14 @@
 import { useContext, useState } from 'react';
+import styled from 'styled-components';
 import { postGame } from '../api/Requests';
 import TwoInput from '../components/TwoInput';
 import ThreeInput from '../components/ThreeInput';
-import { TenWide, ScoreBox } from '../constants/Values';
+import {
+  TenWide,
+  ScoreBox,
+  ErrorMessage,
+  FormHolder,
+} from '../constants/Values';
 import { AuthUserContext } from '../contexts/AuthContext';
 
 export default function CreateGame() {
@@ -27,7 +33,7 @@ export default function CreateGame() {
 
   const [frameNums, setFrameNums] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-  const [warning, setWarning] = useState('');
+  const [warning, setWarning] = useState('_');
 
   const submit = async () => {
     console.log(location);
@@ -48,7 +54,7 @@ export default function CreateGame() {
       });
       console.log(newGame);
     } catch (e) {
-      console.log(`Error creating game`);
+      setWarning('Error creating game.');
     }
   };
 
@@ -132,13 +138,13 @@ export default function CreateGame() {
   }
 
   if (authContext.user === null) {
-    return <div>No user logged in</div>;
+    return <ErrorMessage>No user logged in</ErrorMessage>;
   }
 
   return (
-    <div>
+    <FormHolder>
       {/* function must be referenced instead of passed in so it doesn't rerender every time */}
-      <TenWide>
+      <TenWide style={{ margin: 'auto' }}>
         <TwoInput
           changeFrame={(frame) => changeData(frame, 0)}
           changeWarning={(warn) => changeWarning(warn)}
@@ -180,12 +186,14 @@ export default function CreateGame() {
           changeWarning={(warn) => changeWarning(warn)}
         />
       </TenWide>
-      <TenWide>
+      <TenWide style={{ margin: 'auto' }}>
         {frameNums.map((score, i) => (
           <ScoreBox key={i}>{score}</ScoreBox>
         ))}
       </TenWide>
-      <div>{warning}</div>
+      <div style={warning === '_' ? { color: 'white' } : { color: 'black' }}>
+        {warning}
+      </div>
       <div>Location</div>
       <input
         onChange={(ev) => {
@@ -209,6 +217,6 @@ export default function CreateGame() {
       <button type="button" onClick={submit}>
         SUBMIT
       </button>
-    </div>
+    </FormHolder>
   );
 }

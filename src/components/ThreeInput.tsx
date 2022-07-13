@@ -14,8 +14,8 @@ export default function ThreeInput(props: {
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     // check if the frame data is good. if it is, pass it back up to the input
-    console.log(event.target.id);
-    changeWarning('');
+    // console.log(event.target.id);
+    changeWarning('_');
     const { value } = event.target;
     if (value.length === 0) {
       if (event.target.id === '1') {
@@ -46,7 +46,7 @@ export default function ThreeInput(props: {
       setThrow3(value);
       totalFrame = throw1 + throw2 + value;
     }
-    console.log(totalFrame, throw1, throw2, throw3);
+    // console.log(totalFrame, throw1, throw2, throw3);
     if (validateFrame(totalFrame)) {
       changeFrame(totalFrame);
     } else {
