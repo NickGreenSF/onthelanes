@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { getUserGames } from '../api/Requests';
 import { GameProps } from '../types';
 import GameWDesc from '../components/GameWDesc';
-import { ErrorMessage, GameGrid } from '../constants/Values';
+import { ErrorMessage, GameGrid, width } from '../constants/Values';
 
 const url = document.URL;
 console.log(url.split('/'));
@@ -23,16 +24,34 @@ const getGames = async () => {
   }
 };
 
+const FactSheet = styled.div`
+  width: ${width * 0.9 + 20}px;
+  margin: auto;
+  background-color: white;
+  padding: 10px;
+  margin-top: 20px;
+`;
+
 export default function Profile() {
   const [isLoading, setIsLoading] = useState(initBool);
   const [games, setGames] = useState([] as GameProps[]);
+  const [totalGames, setTotalGames] = useState(1);
+  const [average, setAverage] = useState(0.0);
+  const [username, setUsername] = useState('');
   useEffect(() => {
     getGames().then((res) => {
       setIsLoading(false);
       if (res === undefined) {
         return;
       }
+      setUsername(res[0].username);
       console.log(res);
+      setTotalGames(res.length);
+      let totalScore = 0;
+      for (let i = 0; i < res.length; i += 1) {
+        totalScore += res[i].score;
+      }
+      setAverage(totalScore / res.length);
       setGames(res);
       console.log(games);
     });
@@ -47,10 +66,21 @@ export default function Profile() {
     );
   }
   return (
-    <GameGrid>
-      {games.map((game, i) => (
-        <GameWDesc key={i} game={game} i={i} />
-      ))}
-    </GameGrid>
+    <div>
+      <FactSheet>
+        <span style={{ fontWeight: 'bold' }}>{username}</span>
+        <span style={{ position: 'absolute', left: width * 0.45 }}>
+          Total Games: {totalGames}
+        </span>
+        <span style={{ position: 'absolute', left: width * 0.8 }}>
+          Average: {average.toString().slice(0, 5)}
+        </span>
+      </FactSheet>
+      <GameGrid>
+        {games.map((game, i) => (
+          <GameWDesc key={i} game={game} i={i} />
+        ))}
+      </GameGrid>
+    </div>
   );
 }

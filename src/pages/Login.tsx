@@ -2,12 +2,13 @@ import { useState, useContext } from 'react';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
 import styled from 'styled-components';
 import { fireBaseAuth } from '../firebase/config';
 import { AuthUserContext } from '../contexts/AuthContext';
 import { postUser } from '../api/Requests';
-import { FormHolder } from '../constants/Values';
+import { ErrorMessage, FormHolder, height } from '../constants/Values';
 
 const auth = fireBaseAuth.getAuth();
 
@@ -15,11 +16,32 @@ const ButtonLink = styled.button`
   background-color: white;
   cursor: pointer;
   border: 0;
+  font-size: ${height / 60}px;
+  width: 60%;
+  text-align: right;
+  font-style: italic;
 `;
 
 const FormObject = styled.div`
   margin-bottom: 1em;
-`
+`;
+
+const SimpleInput = styled.input`
+  border: 0;
+  border-bottom: 1px solid gray;
+  font-size: ${height / 40}px;
+`;
+
+const LoginButton = styled.button`
+  border-radius: 10px;
+  background-color: steelblue;
+  color: white;
+  font-size: ${height / 60}px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+`;
 
 export default function Login() {
   const authContext = useContext(AuthUserContext);
@@ -29,6 +51,7 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [warning, setWarning] = useState('');
   const submit = function () {
     try {
       createUserWithEmailAndPassword(auth, email, password).then(
@@ -36,13 +59,18 @@ export default function Login() {
           console.log(userCredential);
           console.log(authContext.user);
           const firebaseId = userCredential.user.uid;
-          postUser({ username, firebase_id: firebaseId }).then((res) => {
-            console.log(res);
-          });
+          updateProfile(userCredential.user, { displayName: username }).then(
+            () => {
+              postUser({ username, firebase_id: firebaseId }).then((res) => {
+                console.log(res);
+              });
+            }
+          );
         }
       );
     } catch (error) {
       console.log(error);
+      setWarning('Error creating user.');
     }
   };
   const loginSubmit = function () {
@@ -50,59 +78,78 @@ export default function Login() {
       signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(
         (userCredential) => {
           console.log(userCredential);
+          window.location.href = './';
         }
       );
     } catch (error) {
       console.log(error);
+      setWarning('Error logging in user.');
     }
   };
 
   if (authContext.user !== null) {
-    return <div>User already signed in.</div>;
+    return <ErrorMessage>User already signed in.</ErrorMessage>;
   }
   if (page === 'login') {
     return (
       <FormHolder>
         <FormObject>
-          <input onChange={(ev) => setLoginEmail(ev.target.value)} />
+          <SimpleInput
+            placeholder="Email"
+            onChange={(ev) => setLoginEmail(ev.target.value)}
+          />
         </FormObject>
         <FormObject>
-          <input onChange={(ev) => setLoginPassword(ev.target.value)} />
+          <SimpleInput
+            type="password"
+            placeholder="Password"
+            onChange={(ev) => setLoginPassword(ev.target.value)}
+          />
         </FormObject>
         <FormObject>
-          <button type="button" onClick={loginSubmit}>
+          <LoginButton type="button" onClick={() => loginSubmit()}>
             Login
-          </button>
+          </LoginButton>
         </FormObject>
         <FormObject>
           <ButtonLink type="button" onClick={() => setPage('register')}>
-            Register here
+            Register <span>here</span>
           </ButtonLink>
         </FormObject>
+        <div>{warning}</div>
       </FormHolder>
     );
   }
   return (
     <FormHolder>
-      <div>
-        <input onChange={(ev) => setUsername(ev.target.value)} />
-      </div>
-      <div>
-        <input onChange={(ev) => setEmail(ev.target.value)} />
-      </div>
-      <div>
-        <input onChange={(ev) => setPassword(ev.target.value)} />
-      </div>
-      <div>
-        <button type="button" onClick={submit}>
+      <FormObject>
+        <SimpleInput
+          placeholder="Username"
+          onChange={(ev) => setUsername(ev.target.value)}
+        />
+      </FormObject>
+      <FormObject>
+        <SimpleInput
+          placeholder="Email"
+          onChange={(ev) => setEmail(ev.target.value)}
+        />
+      </FormObject>
+      <FormObject>
+        <SimpleInput
+          placeholder="Password"
+          onChange={(ev) => setPassword(ev.target.value)}
+        />
+      </FormObject>
+      <FormObject>
+        <LoginButton type="button" onClick={() => submit()}>
           Register
-        </button>
-      </div>
-      <div>
+        </LoginButton>
+      </FormObject>
+      <FormObject>
         <ButtonLink type="button" onClick={() => setPage('login')}>
           Log in here
         </ButtonLink>
-      </div>
+      </FormObject>
     </FormHolder>
   );
 }

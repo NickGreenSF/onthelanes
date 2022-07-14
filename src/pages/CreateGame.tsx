@@ -8,8 +8,34 @@ import {
   ScoreBox,
   ErrorMessage,
   FormHolder,
+  height,
+  width,
 } from '../constants/Values';
 import { AuthUserContext } from '../contexts/AuthContext';
+
+const Label = styled.span`
+  font-size: ${height / 50}px;
+`;
+
+const GridSet = styled.span`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  width: 50%;
+  margin: auto;
+  margin-bottom: ${height / 30}px;
+`;
+
+const SubmitButton = styled.button`
+  border-radius: 10px;
+  background-color: steelblue;
+  color: white;
+  font-size: ${height / 60}px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+`;
 
 export default function CreateGame() {
   const [frames] = useState([
@@ -44,7 +70,7 @@ export default function CreateGame() {
     }
     const { uid } = currUser;
     try {
-      const newGame = await postGame({
+      await postGame({
         score: frameNums[9],
         frames: frames.join('|'),
         location: location !== '' ? location : undefined,
@@ -52,7 +78,7 @@ export default function CreateGame() {
         date: date !== '' ? date : undefined,
         uid,
       });
-      console.log(newGame);
+      // console.log(newGame);
     } catch (e) {
       setWarning('Error creating game.');
     }
@@ -137,6 +163,10 @@ export default function CreateGame() {
     setWarning(inp);
   }
 
+  if (authContext.accessed === false) {
+    return <ErrorMessage>Loading...</ErrorMessage>;
+  }
+
   if (authContext.user === null) {
     return <ErrorMessage>No user logged in</ErrorMessage>;
   }
@@ -192,31 +222,41 @@ export default function CreateGame() {
         ))}
       </TenWide>
       <div style={warning === '_' ? { color: 'white' } : { color: 'black' }}>
-        {warning}
+        <Label>{warning}</Label>
       </div>
-      <div>Location</div>
-      <input
-        onChange={(ev) => {
-          setLocation(ev.target.value);
-        }}
-      />
-      <input
-        type="date"
-        onChange={(ev) => {
-          setDate(ev.target.value);
-          console.log(date);
-        }}
-      />
-      <div>Description</div>
-      <input
-        maxLength={2000}
-        onChange={(ev) => {
-          setDescription(ev.target.value);
-        }}
-      />
-      <button type="button" onClick={submit}>
+      <GridSet>
+        <Label>Location:</Label>
+        <input
+          onChange={(ev) => {
+            setLocation(ev.target.value);
+          }}
+        />
+      </GridSet>
+      <GridSet>
+        <Label>Date:</Label>
+        <input
+          type="date"
+          onChange={(ev) => {
+            setDate(ev.target.value);
+            console.log(date);
+          }}
+        />
+      </GridSet>
+      <div>
+        <div>
+          <Label>Description</Label>
+        </div>
+        <textarea
+          style={{ height: height / 10, width: width * 0.4 }}
+          maxLength={2000}
+          onChange={(ev) => {
+            setDescription(ev.target.value);
+          }}
+        />
+      </div>
+      <SubmitButton type="button" onClick={submit}>
         SUBMIT
-      </button>
+      </SubmitButton>
     </FormHolder>
   );
 }

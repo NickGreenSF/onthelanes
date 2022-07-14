@@ -48,16 +48,17 @@ const CreateGameButton = styled.a`
   display: inline-block;
   position: absolute;
   margin-top: ${height / 120}px;
-  color: gray;
+  color: white;
   background-color: ${navy};
   border-radius: 10px;
   padding: ${height / 60}px;
   padding-top: ${height / 120}px;
   padding-bottom: ${height / 120}px;
+  text-decoration: none;
   :hover {
     color: white;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: underline;
   }
 `;
 
@@ -87,7 +88,7 @@ const auth = fireBaseAuth.getAuth();
 export default function Navbar() {
   const authContext = useContext(AuthUserContext);
   const [dropdownShow, setDropdownShow] = useState(initBool);
-  console.log(authContext);
+  /// console.log(authContext);
 
   const signOut = function () {
     try {
@@ -145,7 +146,7 @@ export default function Navbar() {
       ) : (
         <span>
           <NavbarLink style={{ right: width * 0.15 }} href="./login">
-            Login
+            Login/Register
           </NavbarLink>
         </span>
       )}

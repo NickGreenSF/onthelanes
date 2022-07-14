@@ -10,9 +10,14 @@ const height: number = window.innerHeight;
 const NameHolder = styled.div``;
 
 const FramesHolder = styled.div`
-  margin-top: ${height / 30}px;
-  margin-left: ${width / 20}px;
+  margin-top: ${height / 30 - 10}px;
+  margin-left: ${width / 20 - 20}px;
   width: ${width * 0.4 + 1}px;
+  background-color: white;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
 `;
 
 const ProfileLink = styled.a`
@@ -23,7 +28,12 @@ const Arrow = styled.button`
   width: 100%;
   border: 0;
   cursor: pointer;
-  background-color: whitesmoke;
+  background-color: white;
+`;
+
+const Annotation = styled.div`
+  margin: 1em;
+  font-style: italic;
 `;
 
 const Desc = styled.div`
@@ -31,6 +41,12 @@ const Desc = styled.div`
   overflow-y: scroll;
   overflow-wrap: break-word;
   background-color: white;
+  font-size: ${height / 50}px;
+`;
+
+const DescText = styled.div`
+  padding-left: 1em;
+  padding-right: 1em;
 `;
 
 function retrieveScore(frames: string) {
@@ -107,9 +123,11 @@ const initBool = false;
 export default function GameWDesc(props: { game: GameProps; i: number }) {
   const [accordion, setAccordion] = useState(initBool);
   const { game, i } = props;
+  console.log(game);
   const [location] = useState(
     game.location !== null ? game.location : 'not given'
   );
+  const [date] = useState(game.date !== null ? game.date : 'not given');
   return (
     <FramesHolder key={`game${i}`}>
       <NameHolder>
@@ -130,15 +148,16 @@ export default function GameWDesc(props: { game: GameProps; i: number }) {
         </TenWide>
       </div>
       <Desc style={accordion ? { height: height / 10 } : { height: '0px' }}>
-        <div>Location: {location}</div>
-        <span>{game.description}</span>
+        <Annotation>Location: {location}</Annotation>
+        <Annotation>Date: {date}</Annotation>
+        <DescText>{game.description}</DescText>
       </Desc>
       <Arrow
-        className={game.description || game.location ? '' : 'none'}
+        className={game.description || game.location || game.date ? '' : 'none'}
         type="button"
         onClick={() => setAccordion(!accordion)}
       >
-        {accordion ? '▲' : '▼'}
+        {accordion ? '▲' : 'Read ▼ More'}
       </Arrow>
     </FramesHolder>
   );

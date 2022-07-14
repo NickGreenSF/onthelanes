@@ -33,13 +33,14 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged((newUser) => {
       // console.log(newUser);
-      console.log('someone is here!');
       setAccessed(true);
       setUser(newUser);
       if (!newUser) {
         setUserName(null);
       } else {
-        setUserName(newUser.email);
+        setUserName(
+          newUser.displayName !== null ? newUser.displayName : newUser.email
+        );
       }
       // console.log(authContext);
     });

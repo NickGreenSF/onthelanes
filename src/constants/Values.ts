@@ -66,4 +66,5 @@ export const FormHolder = styled.div`
   margin-top: ${height / 10}px;
   margin-left: ${width / 7}px;
   margin-right: ${width / 7}px;
+  font-size: ${height / 40}px;
 `;
