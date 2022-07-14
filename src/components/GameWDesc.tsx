@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { GameProps } from '../types';
 import { TenWide, ScoreBox } from '../constants/Values';
 import CountFrame from './CountFrame';
+import { AuthUserContext } from '../contexts/AuthContext';
+import { deleteGame } from '../api/Requests';
 
 const width: number = window.innerWidth;
 const height: number = window.innerHeight;
 
-const NameHolder = styled.div``;
+const NameHolder = styled.span``;
 
 const FramesHolder = styled.div`
   margin-top: ${height / 30 - 10}px;
@@ -47,6 +49,24 @@ const Desc = styled.div`
 const DescText = styled.div`
   padding-left: 1em;
   padding-right: 1em;
+`;
+
+const DeleteGameButton = styled.a`
+  display: inline-block;
+  font-size: ${height / 60}px;
+  padding: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  color: white;
+  background-color: red;
+  border-radius: 10px;
+  text-decoration: none;
+  float: right;
+  :hover {
+    color: white;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 
 function retrieveScore(frames: string) {
@@ -120,10 +140,16 @@ function retrieveScore(frames: string) {
 
 const initBool = false;
 
+async function deleteGameLocal(id: number) {
+  await deleteGame({ id });
+  window.location.reload();
+}
+
 export default function GameWDesc(props: { game: GameProps; i: number }) {
   const [accordion, setAccordion] = useState(initBool);
+  const authContext = useContext(AuthUserContext);
   const { game, i } = props;
-  console.log(game);
+  // console.log(game);
   const [location] = useState(
     game.location !== null ? game.location : 'not given'
   );
@@ -135,6 +161,14 @@ export default function GameWDesc(props: { game: GameProps; i: number }) {
           {game.username}
         </ProfileLink>
       </NameHolder>
+      {game.user_id === authContext.user?.uid ? (
+        <DeleteGameButton
+          type="button"
+          onClick={() => deleteGameLocal(game.id)}
+        >
+          DELETE GAME
+        </DeleteGameButton>
+      ) : null}
       <div>
         <TenWide>
           {game.frames.split('|').map((frame, j) => (

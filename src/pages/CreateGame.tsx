@@ -78,6 +78,7 @@ export default function CreateGame() {
         date: date !== '' ? date : undefined,
         uid,
       });
+      window.location.href = `./profile?=${uid}`;
       // console.log(newGame);
     } catch (e) {
       setWarning('Error creating game.');

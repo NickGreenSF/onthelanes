@@ -6,7 +6,7 @@ import GameWDesc from '../components/GameWDesc';
 import { ErrorMessage, GameGrid, width } from '../constants/Values';
 
 const url = document.URL;
-console.log(url.split('/'));
+// console.log(url.split('/'));
 
 const initBool = true;
 
@@ -41,11 +41,11 @@ export default function Profile() {
   useEffect(() => {
     getGames().then((res) => {
       setIsLoading(false);
-      if (res === undefined) {
+      if (res === undefined || res.length === 0) {
         return;
       }
       setUsername(res[0].username);
-      console.log(res);
+      // console.log(res);
       setTotalGames(res.length);
       let totalScore = 0;
       for (let i = 0; i < res.length; i += 1) {
@@ -53,7 +53,7 @@ export default function Profile() {
       }
       setAverage(totalScore / res.length);
       setGames(res);
-      console.log(games);
+      // console.log(games);
     });
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);

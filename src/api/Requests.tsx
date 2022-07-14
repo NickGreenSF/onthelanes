@@ -1,5 +1,5 @@
 import { apiHost } from '../constants/Api';
-import { getRequest, postRequest } from './BaseRequests';
+import { getRequest, postRequest, deleteRequest } from './BaseRequests';
 import { GameProps, UserProps } from '../types';
 
 type GetGamesReponse = {
@@ -43,5 +43,12 @@ export const postUser = async (data: {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const resp: UserProps = await postRequest(url, data);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return resp;
+};
+
+export const deleteGame = async (data: { id: number }) => {
+  const url = `${apiHost}/games`;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const resp: boolean = await deleteRequest(url, data);
   return resp;
 };

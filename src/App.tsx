@@ -38,9 +38,7 @@ function App() {
       if (!newUser) {
         setUserName(null);
       } else {
-        setUserName(
-          newUser.displayName !== null ? newUser.displayName : newUser.email
-        );
+        setUserName(newUser.displayName);
       }
       // console.log(authContext);
     });

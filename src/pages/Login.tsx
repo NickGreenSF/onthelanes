@@ -54,8 +54,8 @@ export default function Login() {
   const [warning, setWarning] = useState('');
   const submit = function () {
     try {
-      createUserWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
           console.log(userCredential);
           console.log(authContext.user);
           const firebaseId = userCredential.user.uid;
@@ -63,11 +63,14 @@ export default function Login() {
             () => {
               postUser({ username, firebase_id: firebaseId }).then((res) => {
                 console.log(res);
+                window.location.href = './';
               });
             }
           );
-        }
-      );
+        })
+        .catch(() => {
+          setWarning('Error creating user');
+        });
     } catch (error) {
       console.log(error);
       setWarning('Error creating user.');
@@ -75,12 +78,14 @@ export default function Login() {
   };
   const loginSubmit = function () {
     try {
-      signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(
-        (userCredential) => {
+      signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+        .then((userCredential) => {
           console.log(userCredential);
           window.location.href = './';
-        }
-      );
+        })
+        .catch(() => {
+          setWarning('Error logging in user.');
+        });
     } catch (error) {
       console.log(error);
       setWarning('Error logging in user.');
@@ -150,6 +155,7 @@ export default function Login() {
           Log in here
         </ButtonLink>
       </FormObject>
+      <div>{warning}</div>
     </FormHolder>
   );
 }
