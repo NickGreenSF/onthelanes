@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled, { StyledComponent } from 'styled-components';
 
 const height: number = window.innerHeight;
 
-const Box = styled.div`
+const Box: StyledComponent<"div", any, {}, never> = styled.div`
   border: 1px solid black;
   border-right: 0px;
   height: ${height / 28}px;
@@ -15,17 +15,17 @@ const Box = styled.div`
   flex-direction: column;
 `;
 
-const TwoWide = styled.div`
+const TwoWide: StyledComponent<"div", any, {}, never> = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
 
-const ThreeWide = styled.div`
+const ThreeWide: StyledComponent<"div", any, {}, never> = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
-export default function CountFrame(props: { frameText: string }) {
+export default function CountFrame(props: { frameText: string }): JSX.Element {
   const { frameText } = props;
   if (frameText === 'X-') {
     return (

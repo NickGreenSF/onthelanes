@@ -9,7 +9,7 @@ export class BadStatusError extends Error {
 }
 
 export const postRequest = async (url = '', data = {}) => {
-  const response = await fetch(url, {
+  const response: Response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const postRequest = async (url = '', data = {}) => {
 };
 
 export const putRequest = async (url = '', data = {}) => {
-  const response = await fetch(url, {
+  const response: Response = await fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export const putRequest = async (url = '', data = {}) => {
 };
 
 export const deleteRequest = async (url = '', data = {}) => {
-  const response = await fetch(url, {
+  const response: Response = await fetch(url, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export const deleteRequest = async (url = '', data = {}) => {
 };
 
 export const getRequest = async (url = '') => {
-  const response = await fetch(url, {
+  const response: Response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
     },

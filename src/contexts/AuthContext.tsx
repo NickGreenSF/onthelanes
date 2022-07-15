@@ -1,8 +1,8 @@
-import { User } from 'firebase/auth';
+import { Auth, User } from 'firebase/auth';
 import { createContext } from 'react';
 import { fireBaseAuth } from '../firebase/config';
 
-const auth = fireBaseAuth.getAuth();
+const auth: Auth = fireBaseAuth.getAuth();
 
 export const AuthUserContext = createContext({
   user: null as User | null,

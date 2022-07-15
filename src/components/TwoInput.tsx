@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { validateFrame } from '../constants/Functions';
 import { validChars, BoxInput } from '../constants/Values';
 
 export default function TwoInput(props: {
   changeFrame: (inp: string) => void;
   changeWarning: (inp: string) => void;
-}) {
+}): JSX.Element {
   const { changeFrame, changeWarning } = props;
 
-  const [throw1, setThrow1] = useState('-');
-  const [throw2, setThrow2] = useState('-');
+  const [throw1, setThrow1]: [string, Dispatch<SetStateAction<string>>] = useState('-');
+  const [throw2, setThrow2]: [string, Dispatch<SetStateAction<string>>] = useState('-');
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     // check if the frame data is good. if it is, pass it back up to the input
-    console.log(event.target.id);
     changeWarning('_');
     const { value } = event.target;
     if (value.length === 0) {

@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import styled from 'styled-components';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import styled, { StyledComponent } from 'styled-components';
 import { postGame } from '../api/Requests';
 import TwoInput from '../components/TwoInput';
 import ThreeInput from '../components/ThreeInput';
@@ -12,12 +12,13 @@ import {
   width,
 } from '../constants/Values';
 import { AuthUserContext } from '../contexts/AuthContext';
+import { Auth, User } from 'firebase/auth';
 
-const Label = styled.span`
+const Label: StyledComponent<"span", any, {}, never> = styled.span`
   font-size: ${height / 50}px;
 `;
 
-const GridSet = styled.span`
+const GridSet: StyledComponent<"span", any, {}, never> = styled.span`
   display: grid;
   grid-template-columns: 1fr 2fr;
   width: 50%;
@@ -25,7 +26,7 @@ const GridSet = styled.span`
   margin-bottom: ${height / 30}px;
 `;
 
-const SubmitButton = styled.button`
+const SubmitButton: StyledComponent<"button", any, {}, never> = styled.button`
   border-radius: 10px;
   background-color: steelblue;
   color: white;
@@ -37,7 +38,7 @@ const SubmitButton = styled.button`
   margin-top: 20px;
 `;
 
-export default function CreateGame() {
+export default function CreateGame(): JSX.Element {
   const [frames] = useState([
     '--',
     '--',
@@ -55,19 +56,26 @@ export default function CreateGame() {
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
 
-  const authContext = useContext(AuthUserContext);
+  const authContext: {
+    user: User | null;
+    setUser: (user: User | null) => void;
+    username: string | null;
+    setUserName: (username: string | null) => void;
+    auth: Auth;
+    accessed: boolean;
+    setAccessed: (acc: boolean) => void;
+} = useContext(AuthUserContext);
 
-  const [frameNums, setFrameNums] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [frameNums, setFrameNums]: [number[], Dispatch<SetStateAction<number[]>>] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-  const [warning, setWarning] = useState('_');
+  const [warning, setWarning]: [string, Dispatch<SetStateAction<string>>] = useState('_');
 
   const submit = async () => {
-    console.log(location);
-    console.log(description);
-    const currUser = authContext.user;
+    const currUser: User | null = authContext.user;
     if (currUser === null) {
       return;
     }
+    // uid is a string. I'm not sure how to do type annotations with destructuring.
     const { uid } = currUser;
     try {
       await postGame({
@@ -85,11 +93,11 @@ export default function CreateGame() {
     }
   };
 
-  function retrieveScore() {
+  function retrieveScore(): void {
     const sepFrames: string[] = frames;
     const scores: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for (let i = 0; i < 9; i += 1) {
-      let digitsSought = 0;
+    for (let i: number = 0; i < 9; i += 1) {
+      let digitsSought: number = 0;
       if (sepFrames[i].length !== 0) {
         if (sepFrames[i] === 'X-') {
           digitsSought = 2;
@@ -109,10 +117,10 @@ export default function CreateGame() {
           scores[i] =
             parseInt(sepFrames[i].charAt(0)) + parseInt(sepFrames[i].charAt(1));
         }
-        let j = i + 1;
+        let j: number = i + 1;
         while (digitsSought > 0) {
-          for (let k = 0; k < sepFrames[j].length; k += 1) {
-            const kChar = sepFrames[j][k];
+          for (let k: number = 0; k < sepFrames[j].length; k += 1) {
+            const kChar: string = sepFrames[j][k];
             if (kChar === 'X') {
               scores[i] += 10;
               if (j !== 9) {
@@ -137,8 +145,8 @@ export default function CreateGame() {
       }
     }
     if (sepFrames[9].length === 3) {
-      for (let k = 0; k < 3; k += 1) {
-        const kChar = sepFrames[9][k];
+      for (let k: number = 0; k < 3; k += 1) {
+        const kChar: string = sepFrames[9][k];
         if (kChar === 'X') {
           scores[9] += 10;
         } else if (kChar === '/') {
@@ -154,13 +162,13 @@ export default function CreateGame() {
     setFrameNums(scores);
   }
 
-  function changeData(inp: string, frame: number) {
+  function changeData(inp: string, frame: number): void {
     // console.log(inp);
     frames[frame] = inp;
     retrieveScore();
   }
 
-  function changeWarning(inp: string) {
+  function changeWarning(inp: string): void {
     setWarning(inp);
   }
 

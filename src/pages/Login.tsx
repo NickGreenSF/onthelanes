@@ -1,18 +1,19 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, Dispatch, SetStateAction } from 'react';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
+  Auth,
 } from 'firebase/auth';
-import styled from 'styled-components';
+import styled, { StyledComponent } from 'styled-components';
 import { fireBaseAuth } from '../firebase/config';
 import { AuthUserContext } from '../contexts/AuthContext';
 import { postUser } from '../api/Requests';
 import { ErrorMessage, FormHolder, height } from '../constants/Values';
 
-const auth = fireBaseAuth.getAuth();
+const auth: Auth = fireBaseAuth.getAuth();
 
-const ButtonLink = styled.button`
+const ButtonLink: StyledComponent<"button", any, {}, never> = styled.button`
   background-color: white;
   cursor: pointer;
   border: 0;
@@ -22,17 +23,17 @@ const ButtonLink = styled.button`
   font-style: italic;
 `;
 
-const FormObject = styled.div`
+const FormObject: StyledComponent<"div", any, {}, never> = styled.div`
   margin-bottom: 1em;
 `;
 
-const SimpleInput = styled.input`
+const SimpleInput: StyledComponent<"input", any, {}, never> = styled.input`
   border: 0;
   border-bottom: 1px solid gray;
   font-size: ${height / 40}px;
 `;
 
-const LoginButton = styled.button`
+const LoginButton: StyledComponent<"button", any, {}, never> = styled.button`
   border-radius: 10px;
   background-color: steelblue;
   color: white;
@@ -43,16 +44,24 @@ const LoginButton = styled.button`
   cursor: pointer;
 `;
 
-export default function Login() {
-  const authContext = useContext(AuthUserContext);
-  const [page, setPage] = useState('login');
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [warning, setWarning] = useState('');
-  const submit = function () {
+export default function Login(): JSX.Element {
+  const authContext: {
+    user: fireBaseAuth.User | null;
+    setUser: (user: fireBaseAuth.User | null) => void;
+    username: string | null;
+    setUserName: (username: string | null) => void;
+    auth: Auth;
+    accessed: boolean;
+    setAccessed: (acc: boolean) => void;
+} = useContext(AuthUserContext);
+  const [page, setPage]: [string, Dispatch<SetStateAction<string>>] = useState('login');
+  const [loginEmail, setLoginEmail]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const [loginPassword, setLoginPassword]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const [username, setUsername]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const [email, setEmail]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const [password, setPassword]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const [warning, setWarning]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const submit = function (): void {
     try {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -72,22 +81,22 @@ export default function Login() {
           setWarning('Error creating user');
         });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setWarning('Error creating user.');
     }
   };
-  const loginSubmit = function () {
+  const loginSubmit = function (): void {
     try {
       signInWithEmailAndPassword(auth, loginEmail, loginPassword)
         .then((userCredential) => {
-          console.log(userCredential);
+          // console.log(userCredential);
           window.location.href = './';
         })
         .catch(() => {
           setWarning('Error logging in user.');
         });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setWarning('Error logging in user.');
     }
   };

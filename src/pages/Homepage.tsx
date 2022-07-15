@@ -1,23 +1,22 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import styled, { StyledComponent } from 'styled-components';
 import { GameProps } from '../types';
 import { getAllGames } from '../api/Requests';
 import GameWDesc from '../components/GameWDesc';
 import { GameGrid, height, width } from '../constants/Values';
 
-const SearchInput = styled.input`
+const SearchInput: StyledComponent<"input", any, {}, never> = styled.input`
   width: ${width * 0.3}px;
   margin-left: ${width * 0.35}px;
   margin-top: 1em;
   font-size: ${height / 40}px;
 `;
 
-function Homepage() {
-  const [loaded, setLoaded] = useState(false as boolean);
-  const [games, setGames] = useState([] as GameProps[]);
-  const [initGames, setInitGames] = useState([] as GameProps[]);
+function Homepage(): JSX.Element {
+  const [loaded, setLoaded]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false as boolean);
+  const [games, setGames]: [GameProps[], Dispatch<SetStateAction<GameProps[]>>] = useState([] as GameProps[]);
+  const [initGames, setInitGames]: [GameProps[], Dispatch<SetStateAction<GameProps[]>>] = useState([] as GameProps[]);
 
-  // You have to define [] here or this will run a zillion times and that's bad.
   useEffect(() => {
     getAllGames().then((data) => {
       setGames(data.games.reverse());
@@ -27,13 +26,12 @@ function Homepage() {
   }, []);
 
   // this method is not well implemented.
-  function handleSearch(k: string) {
-    const key = k.toLowerCase();
-    const newGames = [];
-    for (let i = 0; i < initGames.length; i += 1) {
+  function handleSearch(k: string): void {
+    const key: string = k.toLowerCase();
+    const newGames: GameProps[] = [] as GameProps[];
+    for (let i: number = 0; i < initGames.length; i += 1) {
       if (initGames[i].username.toLowerCase().includes(key)) {
         newGames.push(initGames[i]);
-        console.log(newGames);
       }
     }
     setGames(newGames);
