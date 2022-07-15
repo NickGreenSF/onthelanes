@@ -52,7 +52,7 @@ export default function Profile() {
         totalScore += res[i].score;
       }
       setAverage(totalScore / res.length);
-      setGames(res);
+      setGames(res.reverse());
       // console.log(games);
     });
     /* eslint-disable-next-line react-hooks/exhaustive-deps */

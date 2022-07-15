@@ -141,6 +141,7 @@ export default function Login() {
       </FormObject>
       <FormObject>
         <SimpleInput
+          type="password"
           placeholder="Password"
           onChange={(ev) => setPassword(ev.target.value)}
         />

@@ -71,6 +71,30 @@ const DropDownComp = styled.div`
   cursor: pointer;
 `;
 
+const FitInLink = styled.a`
+  color: black;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+  :visited {
+    color: black;
+    text-decoration: none;
+  }
+`;
+
+const FitInSpan = styled.span`
+  color: black;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+  :visited {
+    color: black;
+    text-decoration: none;
+  }
+`;
+
 const initBool = false;
 
 const auth = fireBaseAuth.getAuth();
@@ -131,7 +155,9 @@ export default function Navbar() {
           >
             {authContext.username}
             <DropDownComp style={{ display: dropdownShow ? 'block' : 'none' }}>
-              <a href={`./profile?uid=${authContext.user.uid}`}>View Profile</a>
+              <FitInLink href={`./profile?uid=${authContext.user.uid}`}>
+                View Profile
+              </FitInLink>
             </DropDownComp>
             <DropDownComp
               onClick={() => {
@@ -139,7 +165,7 @@ export default function Navbar() {
               }}
               style={{ display: dropdownShow ? 'block' : 'none' }}
             >
-              Sign Out
+              <FitInSpan>Sign Out</FitInSpan>
             </DropDownComp>
           </NavbarField>
         </span>
