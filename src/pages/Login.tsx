@@ -81,7 +81,7 @@ export default function Login(): JSX.Element {
           setWarning('Error creating user');
         });
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       setWarning('Error creating user.');
     }
   };
