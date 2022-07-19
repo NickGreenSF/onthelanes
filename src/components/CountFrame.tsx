@@ -2,7 +2,7 @@ import styled, { StyledComponent } from 'styled-components';
 
 const height: number = window.innerHeight;
 
-const Box: StyledComponent<"div", any, {}, never> = styled.div`
+const Box: StyledComponent<'div', any> = styled.div`
   border: 1px solid black;
   border-right: 0px;
   height: ${height / 28}px;
@@ -15,12 +15,12 @@ const Box: StyledComponent<"div", any, {}, never> = styled.div`
   flex-direction: column;
 `;
 
-const TwoWide: StyledComponent<"div", any, {}, never> = styled.div`
+const TwoWide: StyledComponent<'div', any> = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
 
-const ThreeWide: StyledComponent<"div", any, {}, never> = styled.div`
+const ThreeWide: StyledComponent<'div', any> = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;

@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import styled, { StyledComponent } from 'styled-components';
+import { User, Auth } from 'firebase/auth';
 import { GameProps } from '../types';
 import { TenWide, ScoreBox, width, height } from '../constants/Values';
 import CountFrame from './CountFrame';
 import { AuthUserContext } from '../contexts/AuthContext';
 import { deleteGame } from '../api/Requests';
-import { User, Auth } from 'firebase/auth';
 
-const FramesHolder: StyledComponent<"div", any, {}, never> = styled.div`
+const FramesHolder: StyledComponent<'div', any> = styled.div`
   margin-top: ${height / 30 - 10}px;
   margin-left: ${width / 20 - 20}px;
   width: ${width * 0.4 + 1}px;
@@ -18,23 +18,23 @@ const FramesHolder: StyledComponent<"div", any, {}, never> = styled.div`
   border-radius: 10px;
 `;
 
-const ProfileLink: StyledComponent<"a", any, {}, never> = styled.a`
+const ProfileLink: StyledComponent<'a', any> = styled.a`
   margin-left: 0.5em;
 `;
 
-const Arrow: StyledComponent<"button", any, {}, never> = styled.button`
+const Arrow: StyledComponent<'button', any> = styled.button`
   width: 100%;
   border: 0;
   cursor: pointer;
   background-color: white;
 `;
 
-const Annotation: StyledComponent<"div", any, {}, never> = styled.div`
+const Annotation: StyledComponent<'div', any> = styled.div`
   margin: 1em;
   font-style: italic;
 `;
 
-const Desc: StyledComponent<"div", any, {}, never> = styled.div`
+const Desc: StyledComponent<'div', any> = styled.div`
   transition: height ease 0.5s;
   overflow-y: scroll;
   overflow-wrap: break-word;
@@ -42,12 +42,12 @@ const Desc: StyledComponent<"div", any, {}, never> = styled.div`
   font-size: ${height / 50}px;
 `;
 
-const DescText: StyledComponent<"div", any, {}, never> = styled.div`
+const DescText: StyledComponent<'div', any> = styled.div`
   padding-left: 1em;
   padding-right: 1em;
 `;
 
-const DeleteGameButton: StyledComponent<"a", any, {}, never> = styled.a`
+const DeleteGameButton: StyledComponent<'a', any> = styled.a`
   display: inline-block;
   font-size: ${height / 60}px;
   padding: 5px;
@@ -68,8 +68,8 @@ const DeleteGameButton: StyledComponent<"a", any, {}, never> = styled.a`
 function retrieveScore(frames: string): number[] {
   const sepFrames: string[] = frames.split('|');
   const scores: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  for (let i: number = 0; i < 9; i += 1) {
-    let digitsSought: number = 0;
+  for (let i = 0; i < 9; i += 1) {
+    let digitsSought = 0;
     if (sepFrames[i].length !== 0) {
       if (sepFrames[i] === 'X-') {
         digitsSought = 2;
@@ -91,7 +91,7 @@ function retrieveScore(frames: string): number[] {
       }
       let j: number = i + 1;
       while (digitsSought > 0) {
-        for (let k: number = 0; k < sepFrames[j].length; k += 1) {
+        for (let k = 0; k < sepFrames[j].length; k += 1) {
           const kChar: string = sepFrames[j][k];
           if (kChar === 'X') {
             scores[i] += 10;
@@ -117,7 +117,7 @@ function retrieveScore(frames: string): number[] {
     }
   }
   if (sepFrames[9].length === 3) {
-    for (let k: number = 0; k < 3; k += 1) {
+    for (let k = 0; k < 3; k += 1) {
       const kChar: string = sepFrames[9][k];
       if (kChar === 'X') {
         scores[9] += 10;
@@ -139,8 +139,14 @@ async function deleteGameLocal(id: number): Promise<void> {
   window.location.reload();
 }
 
-export default function GameWDesc(props: { game: GameProps; i: number }): JSX.Element {
-  const [accordion, setAccordion]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false as boolean);
+export default function GameWDesc(props: {
+  game: GameProps;
+  i: number;
+}): JSX.Element {
+  const [accordion, setAccordion]: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>
+  ] = useState(false as boolean);
   const authContext: {
     user: User | null;
     setUser: (user: User | null) => void;
@@ -149,12 +155,16 @@ export default function GameWDesc(props: { game: GameProps; i: number }): JSX.El
     auth: Auth;
     accessed: boolean;
     setAccessed: (acc: boolean) => void;
-} = useContext(AuthUserContext);
+  } = useContext(AuthUserContext);
   const { game, i } = props;
-  const [location]: [string | undefined, Dispatch<SetStateAction<string | undefined>>] = useState(
-    game.location !== null ? game.location : 'not given'
-  );
-  const [date]: [string | undefined, Dispatch<SetStateAction<string | undefined>>] = useState(game.date !== null ? game.date : 'not given');
+  const [location]: [
+    string | undefined,
+    Dispatch<SetStateAction<string | undefined>>
+  ] = useState(game.location !== null ? game.location : 'not given');
+  const [date]: [
+    string | undefined,
+    Dispatch<SetStateAction<string | undefined>>
+  ] = useState(game.date !== null ? game.date : 'not given');
   return (
     <FramesHolder key={`game${i}`}>
       <span>

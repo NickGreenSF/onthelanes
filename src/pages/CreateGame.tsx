@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import styled, { StyledComponent } from 'styled-components';
+import { Auth, User } from 'firebase/auth';
 import { postGame } from '../api/Requests';
 import TwoInput from '../components/TwoInput';
 import ThreeInput from '../components/ThreeInput';
@@ -12,13 +13,12 @@ import {
   width,
 } from '../constants/Values';
 import { AuthUserContext } from '../contexts/AuthContext';
-import { Auth, User } from 'firebase/auth';
 
-const Label: StyledComponent<"span", any, {}, never> = styled.span`
+const Label: StyledComponent<'span', any> = styled.span`
   font-size: ${height / 50}px;
 `;
 
-const GridSet: StyledComponent<"span", any, {}, never> = styled.span`
+const GridSet: StyledComponent<'span', any> = styled.span`
   display: grid;
   grid-template-columns: 1fr 2fr;
   width: 50%;
@@ -26,7 +26,7 @@ const GridSet: StyledComponent<"span", any, {}, never> = styled.span`
   margin-bottom: ${height / 30}px;
 `;
 
-const SubmitButton: StyledComponent<"button", any, {}, never> = styled.button`
+const SubmitButton: StyledComponent<'button', any> = styled.button`
   border-radius: 10px;
   background-color: steelblue;
   color: white;
@@ -64,11 +64,15 @@ export default function CreateGame(): JSX.Element {
     auth: Auth;
     accessed: boolean;
     setAccessed: (acc: boolean) => void;
-} = useContext(AuthUserContext);
+  } = useContext(AuthUserContext);
 
-  const [frameNums, setFrameNums]: [number[], Dispatch<SetStateAction<number[]>>] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [frameNums, setFrameNums]: [
+    number[],
+    Dispatch<SetStateAction<number[]>>
+  ] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-  const [warning, setWarning]: [string, Dispatch<SetStateAction<string>>] = useState('_');
+  const [warning, setWarning]: [string, Dispatch<SetStateAction<string>>] =
+    useState('_');
 
   const submit = async () => {
     const currUser: User | null = authContext.user;
@@ -96,8 +100,8 @@ export default function CreateGame(): JSX.Element {
   function retrieveScore(): void {
     const sepFrames: string[] = frames;
     const scores: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for (let i: number = 0; i < 9; i += 1) {
-      let digitsSought: number = 0;
+    for (let i = 0; i < 9; i += 1) {
+      let digitsSought = 0;
       if (sepFrames[i].length !== 0) {
         if (sepFrames[i] === 'X-') {
           digitsSought = 2;
@@ -119,7 +123,7 @@ export default function CreateGame(): JSX.Element {
         }
         let j: number = i + 1;
         while (digitsSought > 0) {
-          for (let k: number = 0; k < sepFrames[j].length; k += 1) {
+          for (let k = 0; k < sepFrames[j].length; k += 1) {
             const kChar: string = sepFrames[j][k];
             if (kChar === 'X') {
               scores[i] += 10;
@@ -145,7 +149,7 @@ export default function CreateGame(): JSX.Element {
       }
     }
     if (sepFrames[9].length === 3) {
-      for (let k: number = 0; k < 3; k += 1) {
+      for (let k = 0; k < 3; k += 1) {
         const kChar: string = sepFrames[9][k];
         if (kChar === 'X') {
           scores[9] += 10;

@@ -13,7 +13,7 @@ import { ErrorMessage, FormHolder, height } from '../constants/Values';
 
 const auth: Auth = fireBaseAuth.getAuth();
 
-const ButtonLink: StyledComponent<"button", any, {}, never> = styled.button`
+const ButtonLink: StyledComponent<'button', any> = styled.button`
   background-color: white;
   cursor: pointer;
   border: 0;
@@ -23,17 +23,17 @@ const ButtonLink: StyledComponent<"button", any, {}, never> = styled.button`
   font-style: italic;
 `;
 
-const FormObject: StyledComponent<"div", any, {}, never> = styled.div`
+const FormObject: StyledComponent<'div', any> = styled.div`
   margin-bottom: 1em;
 `;
 
-const SimpleInput: StyledComponent<"input", any, {}, never> = styled.input`
+const SimpleInput: StyledComponent<'input', any> = styled.input`
   border: 0;
   border-bottom: 1px solid gray;
   font-size: ${height / 40}px;
 `;
 
-const LoginButton: StyledComponent<"button", any, {}, never> = styled.button`
+const LoginButton: StyledComponent<'button', any> = styled.button`
   border-radius: 10px;
   background-color: steelblue;
   color: white;
@@ -49,18 +49,29 @@ export default function Login(): JSX.Element {
     user: fireBaseAuth.User | null;
     setUser: (user: fireBaseAuth.User | null) => void;
     username: string | null;
-    setUserName: (username: string | null) => void;
+    setUserName: (name: string | null) => void;
     auth: Auth;
     accessed: boolean;
     setAccessed: (acc: boolean) => void;
-} = useContext(AuthUserContext);
-  const [page, setPage]: [string, Dispatch<SetStateAction<string>>] = useState('login');
-  const [loginEmail, setLoginEmail]: [string, Dispatch<SetStateAction<string>>] = useState('');
-  const [loginPassword, setLoginPassword]: [string, Dispatch<SetStateAction<string>>] = useState('');
-  const [username, setUsername]: [string, Dispatch<SetStateAction<string>>] = useState('');
-  const [email, setEmail]: [string, Dispatch<SetStateAction<string>>] = useState('');
-  const [password, setPassword]: [string, Dispatch<SetStateAction<string>>] = useState('');
-  const [warning, setWarning]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  } = useContext(AuthUserContext);
+  const [page, setPage]: [string, Dispatch<SetStateAction<string>>] =
+    useState('login');
+  const [loginEmail, setLoginEmail]: [
+    string,
+    Dispatch<SetStateAction<string>>
+  ] = useState('');
+  const [loginPassword, setLoginPassword]: [
+    string,
+    Dispatch<SetStateAction<string>>
+  ] = useState('');
+  const [username, setUsername]: [string, Dispatch<SetStateAction<string>>] =
+    useState('');
+  const [email, setEmail]: [string, Dispatch<SetStateAction<string>>] =
+    useState('');
+  const [password, setPassword]: [string, Dispatch<SetStateAction<string>>] =
+    useState('');
+  const [warning, setWarning]: [string, Dispatch<SetStateAction<string>>] =
+    useState('');
   const submit = function (): void {
     try {
       createUserWithEmailAndPassword(auth, email, password)
@@ -77,7 +88,8 @@ export default function Login(): JSX.Element {
             }
           );
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error);
           setWarning('Error creating user');
         });
     } catch (error) {

@@ -5,7 +5,7 @@ import { getAllGames } from '../api/Requests';
 import GameWDesc from '../components/GameWDesc';
 import { GameGrid, height, width } from '../constants/Values';
 
-const SearchInput: StyledComponent<"input", any, {}, never> = styled.input`
+const SearchInput: StyledComponent<'input', any> = styled.input`
   width: ${width * 0.3}px;
   margin-left: ${width * 0.35}px;
   margin-top: 1em;
@@ -13,9 +13,16 @@ const SearchInput: StyledComponent<"input", any, {}, never> = styled.input`
 `;
 
 function Homepage(): JSX.Element {
-  const [loaded, setLoaded]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false as boolean);
-  const [games, setGames]: [GameProps[], Dispatch<SetStateAction<GameProps[]>>] = useState([] as GameProps[]);
-  const [initGames, setInitGames]: [GameProps[], Dispatch<SetStateAction<GameProps[]>>] = useState([] as GameProps[]);
+  const [loaded, setLoaded]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState(false as boolean);
+  const [games, setGames]: [
+    GameProps[],
+    Dispatch<SetStateAction<GameProps[]>>
+  ] = useState([] as GameProps[]);
+  const [initGames, setInitGames]: [
+    GameProps[],
+    Dispatch<SetStateAction<GameProps[]>>
+  ] = useState([] as GameProps[]);
 
   useEffect(() => {
     getAllGames().then((data) => {
@@ -29,7 +36,7 @@ function Homepage(): JSX.Element {
   function handleSearch(k: string): void {
     const key: string = k.toLowerCase();
     const newGames: GameProps[] = [] as GameProps[];
-    for (let i: number = 0; i < initGames.length; i += 1) {
+    for (let i = 0; i < initGames.length; i += 1) {
       if (initGames[i].username.toLowerCase().includes(key)) {
         newGames.push(initGames[i]);
       }

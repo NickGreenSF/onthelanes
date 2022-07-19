@@ -1,16 +1,20 @@
 import { useState, useContext, Dispatch, SetStateAction } from 'react';
-import styled, { Keyframes, keyframes, StyledComponent } from 'styled-components';
+import styled, {
+  Keyframes,
+  keyframes,
+  StyledComponent,
+} from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { AuthUserContext } from '../contexts/AuthContext';
 import logo from '../constants/logo.png';
 import { fireBaseAuth } from '../firebase/config';
 import { width, height } from '../constants/Values';
 
-const navy: string = '#0a192f';
+const navy = '#0a192f';
 
 const fadeInAni: Keyframes = keyframes`${fadeIn}`;
 
-const NGSFBar: StyledComponent<"div", any, {}, never> = styled.div`
+const NGSFBar: StyledComponent<'div', any> = styled.div`
   position: sticky;
   top: 0;
   z-index: 2;
@@ -21,7 +25,7 @@ const NGSFBar: StyledComponent<"div", any, {}, never> = styled.div`
   }
 `;
 
-const NavbarLink: StyledComponent<"a", any, {}, never> = styled.a`
+const NavbarLink: StyledComponent<'a', any> = styled.a`
   color: black;
   text-decoration: none;
   display: inline-block;
@@ -33,7 +37,7 @@ const NavbarLink: StyledComponent<"a", any, {}, never> = styled.a`
   }
 `;
 
-const NavbarField: StyledComponent<"span", any, {}, never> = styled.span`
+const NavbarField: StyledComponent<'span', any> = styled.span`
   color: black;
   text-decoration: none;
   position: absolute;
@@ -41,7 +45,7 @@ const NavbarField: StyledComponent<"span", any, {}, never> = styled.span`
   width: ${width / 15}px;
 `;
 
-const CreateGameButton: StyledComponent<"a", any, {}, never> = styled.a`
+const CreateGameButton: StyledComponent<'a', any> = styled.a`
   display: inline-block;
   position: absolute;
   margin-top: ${height / 120}px;
@@ -59,7 +63,7 @@ const CreateGameButton: StyledComponent<"a", any, {}, never> = styled.a`
   }
 `;
 
-const DropDownComp: StyledComponent<"div", any, {}, never> = styled.div`
+const DropDownComp: StyledComponent<'div', any> = styled.div`
   padding-top: ${height / 60}px;
   color: black;
   background-color: white;
@@ -68,7 +72,7 @@ const DropDownComp: StyledComponent<"div", any, {}, never> = styled.div`
   cursor: pointer;
 `;
 
-const FitInLink: StyledComponent<"a", any, {}, never> = styled.a`
+const FitInLink: StyledComponent<'a', any> = styled.a`
   color: black;
   text-decoration: none;
   :hover {
@@ -80,7 +84,7 @@ const FitInLink: StyledComponent<"a", any, {}, never> = styled.a`
   }
 `;
 
-const FitInSpan: StyledComponent<"span", any, {}, never> = styled.span`
+const FitInSpan: StyledComponent<'span', any> = styled.span`
   color: black;
   text-decoration: none;
   :hover {
@@ -103,8 +107,11 @@ export default function Navbar() {
     auth: fireBaseAuth.Auth;
     accessed: boolean;
     setAccessed: (acc: boolean) => void;
-} = useContext(AuthUserContext);
-  const [dropdownShow, setDropdownShow]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false as boolean);
+  } = useContext(AuthUserContext);
+  const [dropdownShow, setDropdownShow]: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>
+  ] = useState(false as boolean);
 
   const signOut = function (): void {
     try {

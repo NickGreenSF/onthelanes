@@ -18,7 +18,7 @@ export const validChars: Set<string> = new Set([
   '9',
 ]);
 
-export const ScoreBox: StyledComponent<"div", any, {}, never> = styled.div`
+export const ScoreBox: StyledComponent<'div', any> = styled.div`
   text-align: center;
   border: 1px solid black;
   border-right: 0px;
@@ -31,26 +31,26 @@ export const ScoreBox: StyledComponent<"div", any, {}, never> = styled.div`
   flex-direction: column;
 `;
 
-export const TenWide: StyledComponent<"div", any, {}, never> = styled.div`
+export const TenWide: StyledComponent<'div', any> = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
   border-right: 1px solid black;
   width: ${width * 0.4}px;
 `;
 
-export const BoxInput: StyledComponent<"input", any, {}, never> = styled.input`
+export const BoxInput: StyledComponent<'input', any> = styled.input`
   width: ${(width / 21) * 0.4}px;
   height: ${height / 28}px;
   font-size: ${height / 40}px;
   box-sizing: border-box;
 `;
 
-export const GameGrid: StyledComponent<"div", any, {}, never> = styled.div`
+export const GameGrid: StyledComponent<'div', any> = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
 
-export const ErrorMessage: StyledComponent<"div", any, {}, never> = styled.div`
+export const ErrorMessage: StyledComponent<'div', any> = styled.div`
   background-color: white;
   width: ${width / 3}px;
   margin: auto;
@@ -59,7 +59,7 @@ export const ErrorMessage: StyledComponent<"div", any, {}, never> = styled.div`
   margin-top: ${height / 10}px;
 `;
 
-export const FormHolder: StyledComponent<"div", any, {}, never> = styled.div`
+export const FormHolder: StyledComponent<'div', any> = styled.div`
   background-color: white;
   text-align: center;
   padding: 40px;

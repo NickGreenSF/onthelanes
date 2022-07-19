@@ -8,8 +8,10 @@ export default function TwoInput(props: {
 }): JSX.Element {
   const { changeFrame, changeWarning } = props;
 
-  const [throw1, setThrow1]: [string, Dispatch<SetStateAction<string>>] = useState('-');
-  const [throw2, setThrow2]: [string, Dispatch<SetStateAction<string>>] = useState('-');
+  const [throw1, setThrow1]: [string, Dispatch<SetStateAction<string>>] =
+    useState('-');
+  const [throw2, setThrow2]: [string, Dispatch<SetStateAction<string>>] =
+    useState('-');
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     // check if the frame data is good. if it is, pass it back up to the input

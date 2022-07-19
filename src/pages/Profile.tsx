@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { StyledComponent } from 'styled-components';
 import { getUserGames } from '../api/Requests';
 import { GameProps } from '../types';
 import GameWDesc from '../components/GameWDesc';
@@ -22,7 +22,7 @@ const getGames = async (): Promise<GameProps[] | undefined> => {
   }
 };
 
-const FactSheet = styled.div`
+const FactSheet: StyledComponent<'div', any> = styled.div`
   width: ${width * 0.9 + 20}px;
   margin: auto;
   background-color: white;
@@ -31,11 +31,22 @@ const FactSheet = styled.div`
 `;
 
 export default function Profile() {
-  const [isLoading, setIsLoading]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(true as boolean);
-  const [games, setGames]: [GameProps[], Dispatch<SetStateAction<GameProps[]>>] = useState([] as GameProps[]);
-  const [totalGames, setTotalGames]: [number, Dispatch<SetStateAction<number>>] = useState(1);
-  const [average, setAverage]: [number, Dispatch<SetStateAction<number>>] = useState(0.0);
-  const [username, setUsername]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const [isLoading, setIsLoading]: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>
+  ] = useState(true as boolean);
+  const [games, setGames]: [
+    GameProps[],
+    Dispatch<SetStateAction<GameProps[]>>
+  ] = useState([] as GameProps[]);
+  const [totalGames, setTotalGames]: [
+    number,
+    Dispatch<SetStateAction<number>>
+  ] = useState(1);
+  const [average, setAverage]: [number, Dispatch<SetStateAction<number>>] =
+    useState(0.0);
+  const [username, setUsername]: [string, Dispatch<SetStateAction<string>>] =
+    useState('');
   useEffect(() => {
     getGames().then((res) => {
       setIsLoading(false);
@@ -45,8 +56,8 @@ export default function Profile() {
       setUsername(res[0].username);
       // console.log(res);
       setTotalGames(res.length);
-      let totalScore: number = 0;
-      for (let i: number = 0; i < res.length; i += 1) {
+      let totalScore = 0;
+      for (let i = 0; i < res.length; i += 1) {
         totalScore += res[i].score;
       }
       setAverage(totalScore / res.length);
