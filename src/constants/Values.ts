@@ -44,7 +44,7 @@ export const TenWide: StyledComponent<'div', any> = styled.div`
 `;
 
 export const BoxInput: StyledComponent<'input', any> = styled.input`
-  width: ${(width / 21) * 0.8}px;
+  width: ${(width / 21) * 0.4}px;
   height: ${height / 28}px;
   font-size: ${height / 30}px;
   box-sizing: border-box;
@@ -65,7 +65,7 @@ export const ErrorMessage: StyledComponent<'div', any> = styled.div`
 `;
 
 export const FormHolder: StyledComponent<'div', any> = styled.div`
-  background-color: white;
+  background-color: ${white};
   text-align: center;
   padding: 40px;
   margin-top: ${height / 10}px;

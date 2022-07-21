@@ -9,7 +9,7 @@ import styled, { StyledComponent } from 'styled-components';
 import { fireBaseAuth } from '../firebase/config';
 import { AuthUserContext } from '../contexts/AuthContext';
 import { postUser } from '../api/Requests';
-import { ErrorMessage, FormHolder, height } from '../constants/Values';
+import { ErrorMessage, FormHolder, height, white } from '../constants/Values';
 
 const auth: Auth = fireBaseAuth.getAuth();
 
@@ -42,6 +42,9 @@ const LoginButton: StyledComponent<'button', any> = styled.button`
   padding-left: 20px;
   padding-right: 20px;
   cursor: pointer;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 export default function Login(): JSX.Element {
@@ -100,7 +103,7 @@ export default function Login(): JSX.Element {
   const loginSubmit = function (): void {
     try {
       signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-        .then((userCredential) => {
+        .then(() => {
           // console.log(userCredential);
           window.location.href = './';
         })
@@ -138,8 +141,12 @@ export default function Login(): JSX.Element {
           </LoginButton>
         </FormObject>
         <FormObject>
-          <ButtonLink type="button" onClick={() => setPage('register')}>
-            Register <span>here</span>
+          <ButtonLink
+            style={{ backgroundColor: white }}
+            type="button"
+            onClick={() => setPage('register')}
+          >
+            Register here
           </ButtonLink>
         </FormObject>
         <div>{warning}</div>
@@ -173,7 +180,11 @@ export default function Login(): JSX.Element {
         </LoginButton>
       </FormObject>
       <FormObject>
-        <ButtonLink type="button" onClick={() => setPage('login')}>
+        <ButtonLink
+          style={{ backgroundColor: white }}
+          type="button"
+          onClick={() => setPage('login')}
+        >
           Log in here
         </ButtonLink>
       </FormObject>

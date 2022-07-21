@@ -8,7 +8,7 @@ import { fadeIn } from 'react-animations';
 import { AuthUserContext } from '../contexts/AuthContext';
 import logo from '../constants/logo.png';
 import { fireBaseAuth } from '../firebase/config';
-import { width, height, salmon, tan } from '../constants/Values';
+import { width, height, salmon, white, tan } from '../constants/Values';
 
 const fadeInAni: Keyframes = keyframes`${fadeIn}`;
 
@@ -17,7 +17,7 @@ const NGSFBar: StyledComponent<'div', any> = styled.div`
   top: 0;
   z-index: 2;
   height: ${height / 15}px;
-  background-color: tan;
+  background-color: ${tan};
   @media screen and (max-width: 1000px) {
     visibility: hidden;
   }
@@ -56,16 +56,20 @@ const CreateGameButton: StyledComponent<'a', any> = styled.a`
   padding-bottom: ${height / 120}px;
   text-decoration: none;
   :hover {
-    color: white;
+    color: black;
     cursor: pointer;
     text-decoration: underline;
   }
 `;
 
 const DropDownComp: StyledComponent<'div', any> = styled.div`
-  padding-top: ${height / 60}px;
+  padding-top: ${height / 120}px;
+  padding-bottom: ${height / 120}px;
+  font-size: ${height / 50}px;
+  text-align: center;
+  border: 1px solid black;
   color: black;
-  background-color: white;
+  background-color: ${white};
   animation: 0.25s ${fadeInAni};
   width: ${width / 15}px;
   cursor: pointer;

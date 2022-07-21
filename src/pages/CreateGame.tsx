@@ -6,7 +6,6 @@ import TwoInput from '../components/TwoInput';
 import ThreeInput from '../components/ThreeInput';
 import {
   TenWide,
-  ScoreBox,
   ErrorMessage,
   FormHolder,
   height,
@@ -26,6 +25,19 @@ const GridSet: StyledComponent<'span', any> = styled.span`
   margin-bottom: ${height / 30}px;
 `;
 
+export const ScoreBox: StyledComponent<'div', any> = styled.div`
+  text-align: center;
+  border: 1px solid black;
+  border-right: 0px;
+  height: ${height / 30}px;
+  font-size: ${height / 40}px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+`;
+
 const SubmitButton: StyledComponent<'button', any> = styled.button`
   border-radius: 10px;
   background-color: steelblue;
@@ -36,6 +48,9 @@ const SubmitButton: StyledComponent<'button', any> = styled.button`
   padding-right: 20px;
   cursor: pointer;
   margin-top: 20px;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 export default function CreateGame(): JSX.Element {
@@ -187,7 +202,7 @@ export default function CreateGame(): JSX.Element {
   return (
     <FormHolder>
       {/* function must be referenced instead of passed in so it doesn't rerender every time */}
-      <TenWide style={{ margin: 'auto' }}>
+      <TenWide style={{ margin: 'auto', width: width * 0.4 }}>
         <TwoInput
           changeFrame={(frame) => changeData(frame, 0)}
           changeWarning={(warn) => changeWarning(warn)}
@@ -229,7 +244,7 @@ export default function CreateGame(): JSX.Element {
           changeWarning={(warn) => changeWarning(warn)}
         />
       </TenWide>
-      <TenWide style={{ margin: 'auto' }}>
+      <TenWide style={{ margin: 'auto', width: width * 0.4 }}>
         {frameNums.map((score, i) => (
           <ScoreBox key={i}>{score}</ScoreBox>
         ))}
