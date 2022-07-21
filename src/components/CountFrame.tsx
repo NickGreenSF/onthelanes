@@ -1,14 +1,15 @@
 import styled, { StyledComponent } from 'styled-components';
+import { flesh } from '../constants/Values';
 
 const height: number = window.innerHeight;
 
 const Box: StyledComponent<'div', any> = styled.div`
   border: 1px solid black;
   border-right: 0px;
-  height: ${height / 28}px;
-  font-size: ${height / 40}px;
+  height: ${height / 20}px;
+  font-size: ${height / 30}px;
   text-align: center;
-  background-color: white;
+  background-color: ${flesh};
   display: flex;
   justify-content: center;
   align-content: center;

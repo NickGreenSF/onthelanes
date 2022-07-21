@@ -23,8 +23,8 @@ const getGames = async (): Promise<GameProps[] | undefined> => {
 };
 
 const FactSheet: StyledComponent<'div', any> = styled.div`
-  width: ${width * 0.9 + 20}px;
-  margin: auto;
+  width: ${width * 0.8 + 20}px;
+  margin-left: ${width * 0.1}px;
   background-color: white;
   padding: 10px;
   margin-top: 20px;
@@ -78,10 +78,10 @@ export default function Profile() {
     <div>
       <FactSheet>
         <span style={{ fontWeight: 'bold' }}>{username}</span>
-        <span style={{ position: 'absolute', left: width * 0.45 }}>
+        <span style={{ position: 'absolute', left: width * 0.475 }}>
           Total Games: {totalGames}
         </span>
-        <span style={{ position: 'absolute', left: width * 0.8 }}>
+        <span style={{ position: 'absolute', left: width * 0.75 }}>
           Average: {average.toString().slice(0, 5)}
         </span>
       </FactSheet>

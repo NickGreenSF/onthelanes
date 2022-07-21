@@ -3,7 +3,7 @@ import styled, { StyledComponent } from 'styled-components';
 import { GameProps } from '../types';
 import { getAllGames } from '../api/Requests';
 import GameWDesc from '../components/GameWDesc';
-import { GameGrid, height, width } from '../constants/Values';
+import { ErrorMessage, GameGrid, height, width } from '../constants/Values';
 
 const SearchInput: StyledComponent<'input', any> = styled.input`
   width: ${width * 0.3}px;
@@ -45,7 +45,7 @@ function Homepage(): JSX.Element {
   }
 
   if (!loaded) {
-    return <div>Loading...</div>;
+    return <ErrorMessage>Loading...</ErrorMessage>;
   }
   return (
     <div>

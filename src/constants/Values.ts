@@ -18,13 +18,18 @@ export const validChars: Set<string> = new Set([
   '9',
 ]);
 
+export const salmon = '#ffb5a7';
+export const flesh = '#fcd5ce';
+export const white = '#f8edeb';
+export const tan = '#f9dcc4';
+
 export const ScoreBox: StyledComponent<'div', any> = styled.div`
   text-align: center;
   border: 1px solid black;
   border-right: 0px;
-  height: ${height / 28}px;
-  font-size: ${height / 40}px;
-  background-color: white;
+  height: ${height / 20}px;
+  font-size: ${height / 30}px;
+  background-color: ${flesh};
   display: flex;
   justify-content: center;
   align-content: center;
@@ -35,19 +40,19 @@ export const TenWide: StyledComponent<'div', any> = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
   border-right: 1px solid black;
-  width: ${width * 0.4}px;
+  width: ${width * 0.8}px;
 `;
 
 export const BoxInput: StyledComponent<'input', any> = styled.input`
-  width: ${(width / 21) * 0.4}px;
+  width: ${(width / 21) * 0.8}px;
   height: ${height / 28}px;
-  font-size: ${height / 40}px;
+  font-size: ${height / 30}px;
   box-sizing: border-box;
 `;
 
 export const GameGrid: StyledComponent<'div', any> = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 `;
 
 export const ErrorMessage: StyledComponent<'div', any> = styled.div`
@@ -66,5 +71,5 @@ export const FormHolder: StyledComponent<'div', any> = styled.div`
   margin-top: ${height / 10}px;
   margin-left: ${width / 7}px;
   margin-right: ${width / 7}px;
-  font-size: ${height / 40}px;
+  font-size: ${height / 30}px;
 `;

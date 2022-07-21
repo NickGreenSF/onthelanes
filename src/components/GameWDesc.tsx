@@ -2,24 +2,36 @@ import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 import { User, Auth } from 'firebase/auth';
 import { GameProps } from '../types';
-import { TenWide, ScoreBox, width, height } from '../constants/Values';
+import { TenWide, ScoreBox, width, height, white } from '../constants/Values';
 import CountFrame from './CountFrame';
 import { AuthUserContext } from '../contexts/AuthContext';
 import { deleteGame } from '../api/Requests';
 
 const FramesHolder: StyledComponent<'div', any> = styled.div`
   margin-top: ${height / 30 - 10}px;
-  margin-left: ${width / 20 - 20}px;
-  width: ${width * 0.4 + 1}px;
-  background-color: white;
+  margin-left: ${width * 0.1}px;
+  width: ${width * 0.8 + 1}px;
+  background-color: ${white};
   padding: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
   border-radius: 10px;
 `;
 
 const ProfileLink: StyledComponent<'a', any> = styled.a`
   margin-left: 0.5em;
+  font-size: ${height / 40}px;
+  color: black;
+  text-decoration: none;
+  :hover {
+    color: black;
+    text-decoration: underline;
+  }
+  :visited {
+    color: black;
+  }
 `;
 
 const Arrow: StyledComponent<'button', any> = styled.button`
@@ -29,9 +41,10 @@ const Arrow: StyledComponent<'button', any> = styled.button`
   background-color: white;
 `;
 
-const Annotation: StyledComponent<'div', any> = styled.div`
-  margin: 1em;
-  font-style: italic;
+const TitleAnno = styled.span`
+  color: gray;
+  font-size: ${height / 50}px;
+  margin-left: ${height / 50}px;
 `;
 
 const Desc: StyledComponent<'div', any> = styled.div`
@@ -40,6 +53,7 @@ const Desc: StyledComponent<'div', any> = styled.div`
   overflow-wrap: break-word;
   background-color: white;
   font-size: ${height / 50}px;
+  margin-top: 10px;
 `;
 
 const DescText: StyledComponent<'div', any> = styled.div`
@@ -160,17 +174,19 @@ export default function GameWDesc(props: {
   const [location]: [
     string | undefined,
     Dispatch<SetStateAction<string | undefined>>
-  ] = useState(game.location !== null ? game.location : 'not given');
+  ] = useState(game.location !== null ? game.location : '');
   const [date]: [
     string | undefined,
     Dispatch<SetStateAction<string | undefined>>
-  ] = useState(game.date !== null ? game.date : 'not given');
+  ] = useState(game.date !== null ? game.date : '');
   return (
     <FramesHolder key={`game${i}`}>
       <span>
         <ProfileLink href={`./profile?=${game.user_id}`}>
           {game.username}
         </ProfileLink>
+        <TitleAnno>{location}</TitleAnno>
+        <TitleAnno>{date}</TitleAnno>
       </span>
       {game.user_id === authContext.user?.uid ? (
         <DeleteGameButton
@@ -193,12 +209,10 @@ export default function GameWDesc(props: {
         </TenWide>
       </div>
       <Desc style={accordion ? { height: height / 10 } : { height: '0px' }}>
-        <Annotation>Location: {location}</Annotation>
-        <Annotation>Date: {date}</Annotation>
         <DescText>{game.description}</DescText>
       </Desc>
       <Arrow
-        className={game.description || game.location || game.date ? '' : 'none'}
+        className={game.description ? '' : 'none'}
         type="button"
         onClick={() => setAccordion(!accordion)}
       >
