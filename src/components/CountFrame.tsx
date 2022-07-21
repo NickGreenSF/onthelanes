@@ -6,8 +6,8 @@ const height: number = window.innerHeight;
 const Box: StyledComponent<'div', any> = styled.div`
   border: 1px solid black;
   border-right: 0px;
-  height: ${height / 20}px;
-  font-size: ${height / 30}px;
+  height: ${height / 10}px;
+  font-size: ${height / 20}px;
   text-align: center;
   background-color: ${flesh};
   display: flex;

@@ -23,8 +23,8 @@ const getGames = async (): Promise<GameProps[] | undefined> => {
 };
 
 const FactSheet: StyledComponent<'div', any> = styled.div`
-  width: ${width * 0.8 + 20}px;
-  margin-left: ${width * 0.1}px;
+  width: ${width * 0.9 + 20}px;
+  margin: auto;
   background-color: white;
   padding: 10px;
   margin-top: 20px;
@@ -43,6 +43,8 @@ export default function Profile() {
     number,
     Dispatch<SetStateAction<number>>
   ] = useState(1);
+  const [highGame, setHighGame]: [number, Dispatch<SetStateAction<number>>] =
+    useState(0);
   const [average, setAverage]: [number, Dispatch<SetStateAction<number>>] =
     useState(0.0);
   const [username, setUsername]: [string, Dispatch<SetStateAction<string>>] =
@@ -57,9 +59,14 @@ export default function Profile() {
       // console.log(res);
       setTotalGames(res.length);
       let totalScore = 0;
+      let localHighGame = 0;
       for (let i = 0; i < res.length; i += 1) {
         totalScore += res[i].score;
+        if (res[i].score > localHighGame) {
+          localHighGame = res[i].score;
+        }
       }
+      setHighGame(localHighGame);
       setAverage(totalScore / res.length);
       setGames(res.reverse());
       // console.log(games);
@@ -67,7 +74,7 @@ export default function Profile() {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
   if (isLoading) {
-    return <div>loading</div>;
+    return <div>Loading...</div>;
   }
   if (games.length === 0) {
     return (
@@ -78,11 +85,14 @@ export default function Profile() {
     <div>
       <FactSheet>
         <span style={{ fontWeight: 'bold' }}>{username}</span>
-        <span style={{ position: 'absolute', left: width * 0.475 }}>
+        <span style={{ position: 'absolute', left: width * 0.3 }}>
           Total Games: {totalGames}
         </span>
-        <span style={{ position: 'absolute', left: width * 0.75 }}>
+        <span style={{ position: 'absolute', left: width * 0.55 }}>
           Average: {average.toString().slice(0, 5)}
+        </span>
+        <span style={{ position: 'absolute', left: width * 0.8 }}>
+          High Game: {highGame.toString()}
         </span>
       </FactSheet>
       <GameGrid>

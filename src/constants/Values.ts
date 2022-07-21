@@ -27,8 +27,8 @@ export const ScoreBox: StyledComponent<'div', any> = styled.div`
   text-align: center;
   border: 1px solid black;
   border-right: 0px;
-  height: ${height / 20}px;
-  font-size: ${height / 30}px;
+  height: ${height / 8}px;
+  font-size: ${height / 15}px;
   background-color: ${flesh};
   display: flex;
   justify-content: center;

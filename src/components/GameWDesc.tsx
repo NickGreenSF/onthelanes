@@ -8,7 +8,7 @@ import { AuthUserContext } from '../contexts/AuthContext';
 import { deleteGame } from '../api/Requests';
 
 const FramesHolder: StyledComponent<'div', any> = styled.div`
-  margin-top: ${height / 30 - 10}px;
+  margin-top: ${height / 15 - 10}px;
   margin-left: ${width * 0.1 - 38}px;
   width: ${width * 0.8 + 1}px;
   background-color: ${white};
@@ -204,7 +204,12 @@ export default function GameWDesc(props: {
         </TenWide>
         <TenWide>
           {retrieveScore(game.frames).map((score, k) => (
-            <ScoreBox key={`game${i}score${k}`}>{score}</ScoreBox>
+            <ScoreBox
+              key={`game${i}score${k}`}
+              style={k === 9 ? { fontWeight: 'bold', fontStyle: 'italic' } : {}}
+            >
+              {score}
+            </ScoreBox>
           ))}
         </TenWide>
       </div>

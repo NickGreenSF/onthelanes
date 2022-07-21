@@ -132,7 +132,7 @@ export default function Navbar() {
       <NGSFBar>
         <a href="./">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-          <img alt="" src={logo} />
+          <img alt="On The Lanes bowling blog" src={logo} />
         </a>
         <NavbarField style={{ right: width * 0.15 }}>...</NavbarField>
       </NGSFBar>
