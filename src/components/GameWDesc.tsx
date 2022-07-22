@@ -206,7 +206,9 @@ export default function GameWDesc(props: {
           {retrieveScore(game.frames).map((score, k) => (
             <ScoreBox
               key={`game${i}score${k}`}
-              style={k === 9 ? { fontWeight: 'bold', fontStyle: 'italic' } : {}}
+              style={
+                k === 9 ? { fontWeight: 'bolder', fontStyle: 'italic' } : {}
+              }
             >
               {score}
             </ScoreBox>
