@@ -43,6 +43,15 @@ const NavbarField: StyledComponent<'span', any> = styled.span`
   width: ${width / 15}px;
 `;
 
+const Title: StyledComponent<'span', any> = styled.span`
+  color: black;
+  font-style: italic;
+  position: absolute;
+  margin-top: ${height / 70}px;
+  left: ${width * 0.275}px;
+  font-size: ${height / 30}px;
+`;
+
 const CreateGameButton: StyledComponent<'a', any> = styled.a`
   display: inline-block;
   position: absolute;
@@ -99,6 +108,10 @@ const FitInSpan: StyledComponent<'span', any> = styled.span`
   }
 `;
 
+const BowlingBall = styled.a`
+  margin-left: ${width * 0.025}px;
+`;
+
 const auth = fireBaseAuth.getAuth();
 
 export default function Navbar() {
@@ -141,10 +154,13 @@ export default function Navbar() {
 
   return (
     <NGSFBar>
-      <a href="./">
-        {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-        <img alt="" src={logo} />
-      </a>
+      <span>
+        <BowlingBall href="./">
+          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
+          <img alt="" src={logo} />
+        </BowlingBall>
+        <Title>ON THE LANES</Title>
+      </span>
       {authContext.user ? (
         <span>
           <CreateGameButton style={{ right: width * 0.3 }} href="./creategame">
