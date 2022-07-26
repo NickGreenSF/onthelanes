@@ -18,6 +18,8 @@ export const validChars: Set<string> = new Set([
   '9',
 ]);
 
+export const noSplitChars: Set<string> = new Set(['X', '9', '-']);
+
 export const salmon = '#ffb5a7';
 export const flesh = '#fcd5ce';
 export const white = '#f8edeb';
@@ -46,8 +48,21 @@ export const TenWide: StyledComponent<'div', any> = styled.div`
 export const BoxInput: StyledComponent<'input', any> = styled.input`
   width: ${(width / 21) * 0.4}px;
   height: ${height / 28}px;
-  font-size: ${height / 30}px;
+  font-size: ${height / 32}px;
   box-sizing: border-box;
+  padding-left: 5px;
+`;
+
+export const Circle = styled.span`
+  position: absolute;
+  pointer-events: none;
+  width: ${(width / 21) * 0.4}px;
+  height: ${height / 28}px;
+  font-size: ${height / 32}px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-top: 2px;
 `;
 
 export const GameGrid: StyledComponent<'div', any> = styled.div`

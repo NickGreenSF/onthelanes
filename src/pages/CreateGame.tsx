@@ -17,6 +17,15 @@ const Label: StyledComponent<'span', any> = styled.span`
   font-size: ${height / 50}px;
 `;
 
+const SplitLabel = styled.div`
+  font-size: ${height / 50}px;
+  color: gray;
+  font-style: italic;
+  text-align: right;
+  margin-left: ${width / 7}px;
+  margin-right: ${width / 7}px;
+`;
+
 const GridSet: StyledComponent<'span', any> = styled.span`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -25,7 +34,7 @@ const GridSet: StyledComponent<'span', any> = styled.span`
   margin-bottom: ${height / 30}px;
 `;
 
-export const ScoreBox: StyledComponent<'div', any> = styled.div`
+const ScoreBox: StyledComponent<'div', any> = styled.div`
   text-align: center;
   border: 1px solid black;
   border-right: 0px;
@@ -65,6 +74,20 @@ export default function CreateGame(): JSX.Element {
     '--',
     '--',
     '---',
+  ]);
+  const [splits] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
   ]);
 
   const [description, setDescription] = useState('');
@@ -191,6 +214,18 @@ export default function CreateGame(): JSX.Element {
     setWarning(inp);
   }
 
+  function changeSplit(spl: string, frame: number): void {
+    console.log(spl, frame);
+    if (frame === 9) {
+      for (let i = 0; i < 3; i += 1) {
+        splits[9 + i] = spl.charAt(i) === 't';
+      }
+    } else {
+      splits[frame] = spl === 't';
+    }
+    console.log(splits);
+  }
+
   if (authContext.accessed === false) {
     return <ErrorMessage>Loading...</ErrorMessage>;
   }
@@ -206,42 +241,52 @@ export default function CreateGame(): JSX.Element {
         <TwoInput
           changeFrame={(frame) => changeData(frame, 0)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 0)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 1)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 1)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 2)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 2)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 3)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 3)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 4)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 4)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 5)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 5)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 6)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 6)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 7)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 7)}
         />
         <TwoInput
           changeFrame={(frame) => changeData(frame, 8)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 8)}
         />
         <ThreeInput
           changeFrame={(frame) => changeData(frame, 9)}
           changeWarning={(warn) => changeWarning(warn)}
+          changeSplit={(split) => changeSplit(split, 9)}
         />
       </TenWide>
       <TenWide style={{ margin: 'auto', width: width * 0.4 }}>
@@ -249,6 +294,7 @@ export default function CreateGame(): JSX.Element {
           <ScoreBox key={i}>{score}</ScoreBox>
         ))}
       </TenWide>
+      <SplitLabel>Press "s" on frame to mark it as a split</SplitLabel>
       <div style={warning === '_' ? { color: 'white' } : { color: 'black' }}>
         <Label>{warning}</Label>
       </div>
