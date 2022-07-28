@@ -179,6 +179,12 @@ export default function GameWDesc(props: {
     string | undefined,
     Dispatch<SetStateAction<string | undefined>>
   ] = useState(game.date !== null ? game.date : '');
+  const [splitArr]: [string[], Dispatch<SetStateAction<string[]>>] = useState(
+    game.splits
+      ? game.splits.split('|')
+      : (['f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'fff'] as string[])
+  );
+  // console.log(game);
   return (
     <FramesHolder key={`game${i}`}>
       <span>
@@ -199,7 +205,11 @@ export default function GameWDesc(props: {
       <div>
         <TenWide>
           {game.frames.split('|').map((frame, j) => (
-            <CountFrame key={`game${i}frame${j}`} frameText={frame} />
+            <CountFrame
+              key={`game${i}frame${j}`}
+              frameText={frame}
+              splits={splitArr[j]}
+            />
           ))}
         </TenWide>
         <TenWide>

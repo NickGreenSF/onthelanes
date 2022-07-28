@@ -76,18 +76,16 @@ export default function CreateGame(): JSX.Element {
     '---',
   ]);
   const [splits] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
+    'f',
+    'f',
+    'f',
+    'f',
+    'f',
+    'f',
+    'f',
+    'f',
+    'f',
+    'fff',
   ]);
 
   const [description, setDescription] = useState('');
@@ -127,6 +125,7 @@ export default function CreateGame(): JSX.Element {
         description: description !== '' ? description : undefined,
         date: date !== '' ? date : undefined,
         uid,
+        splits: splits.join('|'),
       });
       window.location.href = `./profile?=${uid}`;
       // console.log(newGame);
@@ -215,15 +214,9 @@ export default function CreateGame(): JSX.Element {
   }
 
   function changeSplit(spl: string, frame: number): void {
-    console.log(spl, frame);
-    if (frame === 9) {
-      for (let i = 0; i < 3; i += 1) {
-        splits[9 + i] = spl.charAt(i) === 't';
-      }
-    } else {
-      splits[frame] = spl === 't';
-    }
-    console.log(splits);
+    // console.log(spl, frame);
+    splits[frame] = spl;
+    // console.log(splits);
   }
 
   if (authContext.accessed === false) {

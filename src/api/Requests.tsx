@@ -28,6 +28,7 @@ export const postGame = async (data: {
   description?: string;
   date?: string;
   uid: string;
+  splits?: string;
 }) => {
   const url = `${apiHost}/games`;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
