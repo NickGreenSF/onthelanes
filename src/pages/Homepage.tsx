@@ -3,11 +3,17 @@ import styled, { StyledComponent } from 'styled-components';
 import { GameProps } from '../types';
 import { getAllGames } from '../api/Requests';
 import GameWDesc from '../components/GameWDesc';
-import { ErrorMessage, GameGrid, height, width } from '../constants/Values';
+import {
+  ErrorMessage,
+  GameGrid,
+  height,
+  width,
+  mobile,
+} from '../constants/Values';
 
 const SearchInput: StyledComponent<'input', any> = styled.input`
-  width: ${width * 0.3}px;
-  margin-left: ${width * 0.35}px;
+  width: ${mobile ? width * 0.8 : width * 0.3}px;
+  margin-left: ${mobile ? width * 0.075 : width * 0.35}px;
   margin-top: 1em;
   font-size: ${height / 40}px;
 `;

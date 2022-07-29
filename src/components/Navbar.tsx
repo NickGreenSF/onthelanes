@@ -26,6 +26,7 @@ const NavbarLink: StyledComponent<'a', any> = styled.a`
   display: inline-block;
   position: absolute;
   margin-top: ${height / 60}px;
+  overflow: hidden;
   :hover {
     cursor: pointer;
     text-decoration: none;
@@ -77,7 +78,7 @@ const DropDownComp: StyledComponent<'div', any> = styled.div`
   color: black;
   background-color: ${white};
   animation: 0.25s ${fadeInAni};
-  width: ${width / 15}px;
+  width: ${Math.max(100, width / 15)}px;
   cursor: pointer;
 `;
 
@@ -160,13 +161,20 @@ export default function Navbar() {
       </span>
       {authContext.user ? (
         <span>
-          <CreateGameButton style={{ right: width * 0.3 }} href="./creategame">
+          <CreateGameButton
+            style={mobile ? { marginLeft: 10 } : { right: width * 0.3 }}
+            href="./creategame"
+          >
             Add a Score
           </CreateGameButton>
           <NavbarField
             onMouseOver={() => setDropdownShow(true)}
             onMouseOut={() => setDropdownShow(false)}
-            style={{ right: width * 0.15 }}
+            style={
+              mobile
+                ? { textAlign: 'center', right: width * 0.2, width: 100 }
+                : { right: width * 0.15 }
+            }
           >
             {authContext.username}
             <DropDownComp style={{ display: dropdownShow ? 'block' : 'none' }}>

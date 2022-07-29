@@ -16,7 +16,7 @@ import { deleteGame } from '../api/Requests';
 
 const FramesHolder: StyledComponent<'div', any> = styled.div`
   margin-top: ${height / 15 - 10}px;
-  margin-left: ${width * 0.1 - 38}px;
+  margin-left: ${mobile ? 10 : width * 0.1 - 38}px;
   width: ${width * 0.8 + 1}px;
   background-color: ${white};
   padding: 20px;
