@@ -3,7 +3,7 @@ import styled, { StyledComponent } from 'styled-components';
 import { getUserGames } from '../api/Requests';
 import { GameProps } from '../types';
 import GameWDesc from '../components/GameWDesc';
-import { ErrorMessage, GameGrid, width } from '../constants/Values';
+import { ErrorMessage, GameGrid, width, mobile } from '../constants/Values';
 
 const url: string = document.URL;
 // console.log(url.split('/'));
@@ -85,13 +85,31 @@ export default function Profile() {
     <div>
       <FactSheet>
         <span style={{ fontWeight: 'bold' }}>{username}</span>
-        <span style={{ position: 'absolute', left: width * 0.3 }}>
+        <span
+          style={
+            mobile
+              ? { display: 'block' }
+              : { position: 'absolute', left: width * 0.3 }
+          }
+        >
           Total Games: {totalGames}
         </span>
-        <span style={{ position: 'absolute', left: width * 0.55 }}>
+        <span
+          style={
+            mobile
+              ? { display: 'block' }
+              : { position: 'absolute', left: width * 0.55 }
+          }
+        >
           Average: {average.toString().slice(0, 5)}
         </span>
-        <span style={{ position: 'absolute', left: width * 0.8 }}>
+        <span
+          style={
+            mobile
+              ? { display: 'block' }
+              : { position: 'absolute', left: width * 0.8 }
+          }
+        >
           High Game: {highGame.toString()}
         </span>
       </FactSheet>

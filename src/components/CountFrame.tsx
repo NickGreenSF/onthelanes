@@ -1,11 +1,11 @@
 import styled, { StyledComponent } from 'styled-components';
-import { Circle, flesh, height, width } from '../constants/Values';
+import { Circle, flesh, height, width, mobile } from '../constants/Values';
 
 const Box: StyledComponent<'div', any> = styled.div`
   border: 1px solid black;
   border-right: 0px;
-  height: ${height / 10}px;
-  font-size: ${height / 20}px;
+  height: ${mobile ? height / 15 : height / 10}px;
+  font-size: ${mobile ? width / 25 : height / 20}px;
   text-align: center;
   background-color: ${flesh};
   display: flex;
@@ -42,30 +42,30 @@ export default function CountFrame(props: {
       <div>
         <Circle
           style={{
-            height: height / 10 - 20,
+            height: mobile ? height / 15 - 20 : height / 10 - 20,
             marginTop: 10,
             width: (width / 21) * 0.8,
-            border: '2px solid black',
+            border: mobile ? '1px solid black' : '2px solid black',
             display: splits.charAt(0) === 't' ? 'block' : 'none',
           }}
         />
         <Circle
           style={{
-            height: height / 10 - 20,
+            height: mobile ? height / 15 - 20 : height / 10 - 20,
             marginTop: 10,
             marginLeft: (width / 21) * 0.8,
             width: (width / 21) * 0.8,
-            border: '2px solid black',
+            border: mobile ? '1px solid black' : '2px solid black',
             display: splits.charAt(1) === 't' ? 'block' : 'none',
           }}
         />
         <Circle
           style={{
-            height: height / 10 - 20,
+            height: mobile ? height / 15 - 20 : height / 10 - 20,
             marginTop: 10,
             marginLeft: (width / 21) * 1.6,
             width: (width / 21) * 0.8,
-            border: '2px solid black',
+            border: mobile ? '1px solid black' : '2px solid black',
             display: splits.charAt(2) === 't' ? 'block' : 'none',
           }}
         />
@@ -87,10 +87,10 @@ export default function CountFrame(props: {
     <div>
       <Circle
         style={{
-          height: height / 10 - 20,
+          height: mobile ? height / 15 - 20 : height / 10 - 20,
           marginTop: 10,
           width: (width / 21) * 0.8,
-          border: '2px solid black',
+          border: mobile ? '1px solid black' : '2px solid black',
           display: splits === 't' ? 'block' : 'none',
         }}
       />

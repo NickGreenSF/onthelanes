@@ -10,6 +10,7 @@ import {
   FormHolder,
   height,
   width,
+  mobile,
 } from '../constants/Values';
 import { AuthUserContext } from '../contexts/AuthContext';
 
@@ -230,7 +231,9 @@ export default function CreateGame(): JSX.Element {
   return (
     <FormHolder>
       {/* function must be referenced instead of passed in so it doesn't rerender every time */}
-      <TenWide style={{ margin: 'auto', width: width * 0.4 }}>
+      <TenWide
+        style={{ margin: 'auto', width: mobile ? width * 0.8 : width * 0.4 }}
+      >
         <TwoInput
           changeFrame={(frame) => changeData(frame, 0)}
           changeWarning={(warn) => changeWarning(warn)}
@@ -282,7 +285,9 @@ export default function CreateGame(): JSX.Element {
           changeSplit={(split) => changeSplit(split, 9)}
         />
       </TenWide>
-      <TenWide style={{ margin: 'auto', width: width * 0.4 }}>
+      <TenWide
+        style={{ margin: 'auto', width: mobile ? width * 0.8 : width * 0.4 }}
+      >
         {frameNums.map((score, i) => (
           <ScoreBox key={i}>{score}</ScoreBox>
         ))}

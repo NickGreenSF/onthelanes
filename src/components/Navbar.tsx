@@ -8,7 +8,7 @@ import { fadeIn } from 'react-animations';
 import { AuthUserContext } from '../contexts/AuthContext';
 import logo from '../constants/logo.png';
 import { fireBaseAuth } from '../firebase/config';
-import { width, height, salmon, white, tan } from '../constants/Values';
+import { width, height, salmon, white, tan, mobile } from '../constants/Values';
 
 const fadeInAni: Keyframes = keyframes`${fadeIn}`;
 
@@ -18,9 +18,6 @@ const NGSFBar: StyledComponent<'div', any> = styled.div`
   z-index: 2;
   height: ${height / 15}px;
   background-color: ${tan};
-  @media screen and (max-width: 1000px) {
-    visibility: hidden;
-  }
 `;
 
 const NavbarLink: StyledComponent<'a', any> = styled.a`
@@ -159,7 +156,7 @@ export default function Navbar() {
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <img alt="" src={logo} />
         </BowlingBall>
-        <Title>ON THE LANES</Title>
+        <Title>{mobile ? '' : 'ON THE LANES'}</Title>
       </span>
       {authContext.user ? (
         <span>

@@ -2,7 +2,14 @@ import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 import { User, Auth } from 'firebase/auth';
 import { GameProps } from '../types';
-import { TenWide, ScoreBox, width, height, white } from '../constants/Values';
+import {
+  TenWide,
+  ScoreBox,
+  width,
+  height,
+  white,
+  mobile,
+} from '../constants/Values';
 import CountFrame from './CountFrame';
 import { AuthUserContext } from '../contexts/AuthContext';
 import { deleteGame } from '../api/Requests';
@@ -21,7 +28,7 @@ const FramesHolder: StyledComponent<'div', any> = styled.div`
 `;
 
 const ProfileLink: StyledComponent<'a', any> = styled.a`
-  margin-left: 0.5em;
+  margin-left: 5px;
   font-size: ${height / 40}px;
   color: black;
   text-decoration: none;
@@ -44,7 +51,8 @@ const Arrow: StyledComponent<'button', any> = styled.button`
 const TitleAnno = styled.span`
   color: gray;
   font-size: ${height / 50}px;
-  margin-left: ${height / 50}px;
+  margin-left: 5px;
+  display: ${mobile ? 'block' : 'inline-block'};
 `;
 
 const Desc: StyledComponent<'div', any> = styled.div`
