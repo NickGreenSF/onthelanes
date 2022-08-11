@@ -45,7 +45,7 @@ export default function ThreeInput(props: {
     }
     if (value.length === 2) {
       if (
-        value.charAt(1) !== 's' ||
+        (value.charAt(1) !== 's' && value.charAt(1) !== 'S') ||
         value.charAt(0) === 'X' ||
         value.charAt(0) === '9' ||
         value.charAt(0) === '-'
@@ -90,7 +90,7 @@ export default function ThreeInput(props: {
         : '';
       return;
     }
-    if (value === 's') {
+    if (value === 's' || value === 'S') {
       if (event.target.id === '1') {
         setSplit1(!split1);
         changeSplit(

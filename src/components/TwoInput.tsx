@@ -36,9 +36,10 @@ export default function TwoInput(props: {
       return;
     }
     if (value.length === 2) {
+      console.log(value);
       // You can't split strikes because you knocked all the pins down. You can't split 9 because there's only 1 pin. You can't split gutters.
       if (
-        value.charAt(1) !== 's' ||
+        (value.charAt(1) !== 's' && value.charAt(1) !== 'S') ||
         value.charAt(0) === 'X' ||
         value.charAt(0) === '9' ||
         value.charAt(0) === '-'
@@ -54,7 +55,7 @@ export default function TwoInput(props: {
         : '';
       return;
     }
-    if (value === 's') {
+    if (value === 's' || value === 'S') {
       setSplit(!split);
       changeSplit(split ? 'f' : 't');
       event.target.value = '';

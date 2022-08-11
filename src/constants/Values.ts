@@ -52,6 +52,7 @@ export const BoxInput: StyledComponent<'input', any> = styled.input`
   height: ${height / 28}px;
   font-size: ${height / 32}px;
   box-sizing: border-box;
+  padding-left: ${mobile ? 2 : 4}px;
 `;
 
 export const Circle = styled.span`
