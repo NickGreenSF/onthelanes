@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/onthelanes/static/css/main.d726be7c.css",
-    "main.js": "/onthelanes/static/js/main.3a145768.js",
-    "static/media/Helvetica-Neue-Light_22503.ttf": "/onthelanes/static/media/Helvetica-Neue-Light_22503.f1279b7b3457c18f9f82.ttf",
-    "index.html": "/onthelanes/index.html",
-    "main.d726be7c.css.map": "/onthelanes/static/css/main.d726be7c.css.map",
-    "main.3a145768.js.map": "/onthelanes/static/js/main.3a145768.js.map"
+    "main.css": "/static/css/main.7be15d6f.css",
+    "main.js": "/static/js/main.747c1c4b.js",
+    "static/media/Helvetica-Neue-Light_22503.ttf": "/static/media/Helvetica-Neue-Light_22503.f1279b7b3457c18f9f82.ttf",
+    "index.html": "/index.html",
+    "main.7be15d6f.css.map": "/static/css/main.7be15d6f.css.map",
+    "main.747c1c4b.js.map": "/static/js/main.747c1c4b.js.map"
   },
   "entrypoints": [
-    "static/css/main.d726be7c.css",
-    "static/js/main.3a145768.js"
+    "static/css/main.7be15d6f.css",
+    "static/js/main.747c1c4b.js"
   ]
 }
