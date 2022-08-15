@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { User } from 'firebase/auth';
 import Homepage from './pages/Homepage';
@@ -11,6 +11,7 @@ import { fireBaseAuth } from './firebase/config';
 import Profile from './pages/Profile';
 
 const auth = fireBaseAuth.getAuth();
+console.log(auth);
 
 function App() {
   const [user, setUser] = useState(null as User | null);
@@ -48,16 +49,17 @@ function App() {
     <div>
       <AuthUserContext.Provider value={authContext}>
         <Navbar />
-        <BrowserRouter>
+        <HashRouter>
           <div>
             <Routes>
-              <Route path="/" element={<Homepage />} />
               <Route path="/creategame" element={<CreateGame />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/" element={<Homepage />} />
+              <Route element={<Homepage />} />
             </Routes>
           </div>
-        </BrowserRouter>
+        </HashRouter>
       </AuthUserContext.Provider>
     </div>
   );
